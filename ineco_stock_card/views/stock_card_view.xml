@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_ineco_stock_card_form" model="ir.ui.view">
+            <field name="name">ineco.stock.card.form</field>
+            <field name="model">ineco.stock.card</field>
+            <field name="arch" type="xml">
+                <form string="Stock Card Form">
+                    <header>
+                        <button name="button_compute" string="เคลียร์และเรียกข้อมูลใหม่" type="object"/>
+                        <!--                        <button name="button_compute_new" string="เคลียร์และเรียกข้อมูลใหม่" type="object"/>-->
+                        <button name="button_update_fg_standard_cost" string="ปรับปรุง FG Cost อย่างเดียว"
+                                groups="base.group_erp_manager"
+                                type="object"/>
+                        <button name="button_compute_bof" string="คำนวณต้นทุนเบิกตั้งแต่ต้นปี" type="object"
+                                invisible="1"/>
+                        <button name="button_recompute" string="คำนวณเฉพาะยอดยกไป" type="object" invisible="1"/>
+                        <button name="button_generate_lot" string="สร้างเฉาพะ LOT ในเดือน" type="object" invisible="1"
+                                groups="base.group_erp_manager"/>
+                        <button name="correct_stock_card_lot" string="ปรับ LOT คงเหลือให้เท่ากับยอดยกมา" type="object"
+                                groups="base.group_erp_manager"/>
+                        <button name="close_period" string="ปิดสต๊อก" type="object"
+                                attrs="{'invisible': [('close_date','!=',False)]}"/>
+                        <!--                        <button name="button_import_express_bf" string="Import Express Only BF" type="object"/>-->
+                        <!--                        <button name="button_import_express" string="Import Express 1 by 1" type="object"/>-->
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="period_id"/>
+                                <field name="name"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="close_date" readonly="1" />
+                            </group>
+                            <group>
+                                <field name="cost_method" invisible="1"/>
+                                <field name="begining_values"/>
+                                <field name="ending_values"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Products">
+                                <field name="product_line_ids">
+                                    <tree string="Product Lines">
+                                        <field name="product_id"/>
+                                        <field name="line_ids"/>
+                                        <field name="bf_quantity" invisible="0"/>
+                                        <field name="bf_cost" invisible="0"/>
+                                        <field name="bf_value" invisible="0" sum="Total2"/>
+                                        <field name="in_quantity" invisible="1"/>
+                                        <field name="in_cost" invisible="1"/>
+                                        <field name="in_value" invisible="1"/>
+                                        <field name="out_quantity" invisible="1"/>
+                                        <field name="out_cost" invisible="1"/>
+                                        <field name="out_value" invisible="1"/>
+                                        <field name="balance_quantity"/>
+                                        <field name="balance_cost"/>
+                                        <field name="balance_value" sum="Total"/>
+                                        <button name="button_open" string="E" type="object"/>
+                                    </tree>
+                                    <form string="Product Lines">
+                                        <heaer>
+                                            <button name="button_recompute" string="Re-Compute" type="object"/>
+                                        </heaer>
+                                        <group>
+                                            <group>
+                                                <group colspan="4">
+                                                    <field name="product_id"/>
+                                                </group>
+                                                <group>
+                                                    <field name="bf_quantity"/>
+                                                    <field name="bf_cost"/>
+                                                    <field name="bf_value"/>
+                                                </group>
+                                                <group>
+                                                    <field name="balance_quantity"/>
+                                                    <field name="balance_cost"/>
+                                                    <field name="balance_value"/>
+                                                </group>
+                                            </group>
+                                            <field name="line_ids" colspan="4" nolabel="1"
+                                                   context="{'default_product_id': product_id}">
+                                                <tree string="Lines" editable="bottom">
+                                                    <field name="sequence" widget="handle"/>
+                                                    <field name="date"/>
+                                                    <field name="product_id" invisible="1"/>
+                                                    <field name="document_number"/>
+                                                    <field name="date_invoice"/>
+                                                    <field name="partner_id"/>
+                                                    <field name="in_quantity"/>
+                                                    <field name="in_cost"/>
+                                                    <field name="in_value"/>
+                                                    <field name="out_quantity"/>
+                                                    <field name="out_cost"/>
+                                                    <field name="out_value"/>
+                                                    <field name="balance_quantity"/>
+                                                    <field name="balance_cost"/>
+                                                    <field name="balance_value"/>
+                                                    <field name="name"/>
+                                                </tree>
+                                            </field>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Notes">
+                                <field name="note"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_card_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.card.tree</field>
+            <field name="model">ineco.stock.card</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Card">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="begining_values"/>
+                    <field name="ending_values"/>
+                    <field name="cost_method"/>
+                    <field name="close_date" />
+                    <field name="note"/>
+                    <field name="last_update_stock" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_card_search" model="ir.ui.view">
+            <field name="name">ineco.stock.card.search</field>
+            <field name="model">ineco.stock.card</field>
+            <field name="arch" type="xml">
+                <search string="Stock Card">
+                    <field name="name"/>
+                    <field name="date_from"/>
+                    <field name="date_to"/>
+                    <field name="cost_method"/>
+                    <field name="note"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Stock Card -->
+        <record model="ir.actions.act_window" id="action_ineco_stock_card">
+            <field name="name">Stock Card</field>
+            <field name="res_model">ineco.stock.card</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="view_ineco_stock_card_tree"/>
+            <field name="search_view_id" ref="view_ineco_stock_card_search"/>
+        </record>
+        <record id="action_ineco_stock_card_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_stock_card_tree"/>
+            <field name="act_window_id" ref="action_ineco_stock_card"/>
+        </record>
+        <record id="action_ineco_stock_card_from" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_stock_card_form"/>
+            <field name="act_window_id" ref="action_ineco_stock_card"/>
+        </record>
+
+        <record id="view_ineco_stock_card_product_form" model="ir.ui.view">
+            <field name="name">ineco.stock.card.product.form</field>
+            <field name="model">ineco.stock.card.product</field>
+            <field name="arch" type="xml">
+                <form string="Product Lines">
+                    <heaer>
+                        <button name="button_recompute" string="คำนวณยอดยกไปยกมา" type="object"/>
+                        <button name="button_recompute_local" string="คำนวณยอดเฉพาะหน้านี้" type="object"/>
+                        <button name="button_update_lot_stock_equal_bof" string="ปรับยอด LOT ให้เท่ากับยอดยกมา" type="object"
+                                groups="base.group_erp_manager"
+                        />
+                        <!--                        <button name="button_compute_bof" string="คำนวณต้นทุนเบิกตั้งแต่ต้นปี" type="object" />-->
+                        <!--                        <button name="button_update_bf" string="ปรับปรุงยอดยกมา" type="object" />-->
+                    </heaer>
+                    <group>
+                        <group>
+                            <group colspan="4">
+                                <field name="product_id"/>
+                                <field name="stock_period_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="bf_quantity"/>
+                                <field name="bf_cost"/>
+                                <field name="bf_value"/>
+                            </group>
+                            <group>
+                                <field name="balance_quantity"/>
+                                <field name="balance_cost"/>
+                                <field name="balance_value"/>
+                            </group>
+                        </group>
+                        <field name="line_ids" colspan="4" nolabel="1"
+                               context="{'default_product_id': product_id, 'default_is_manual': True}">
+                            <tree string="Lines" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="date"/>
+                                <field name="product_id" invisible="1"/>
+                                <field name="document_number"/>
+                                <field name="date_invoice"/>
+                                <field name="partner_id"/>
+                                <field name="in_quantity"/>
+                                <field name="in_cost"/>
+                                <field name="in_value"/>
+                                <field name="out_quantity"/>
+                                <field name="out_cost"/>
+                                <field name="out_value"/>
+                                <field name="balance_quantity"/>
+                                <field name="balance_cost"/>
+                                <field name="balance_value"/>
+                                <field name="name"/>
+                                <field name="is_manual" invisible="1"/>
+                                <field name="cn_type" invisible="0" readonly="1"/>
+                                <!--                                <field name="remain_qty" />-->
+                            </tree>
+                        </field>
+                        <newline/>
+                        <field name="manual_ids" colspan="4" string="Manual Entry"
+                               context="{'default_product_id': product_id, 'default_stock_period_id': stock_period_id}">
+                            <tree string="Lines" editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="date"/>
+                                <field name="product_id" invisible="1"/>
+                                <field name="document_number"/>
+                                <field name="date_invoice"/>
+                                <field name="in_quantity"/>
+                                <field name="in_cost"/>
+                                <field name="in_value"/>
+                                <field name="out_quantity"/>
+                                <field name="out_cost"/>
+                                <field name="out_value"/>
+                                <field name="stock_period_id" invisible="1"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem name="Stock Card"
+                  groups="base.group_stock_card"
+                  id="menu_ineco_stock_card_main"
+                  parent="account.menu_finance"
+                  sequence="50"/>
+
+        <menuitem action="action_ineco_stock_card"
+                  groups="base.group_stock_card"
+                  id="menu_ineco_stock_card"
+                  parent="menu_ineco_stock_card_main"
+                  sequence="10"/>
+
+        <record id="view_ineco_stock_card_lot_tree" model="ir.ui.view">
+            <field name="name">ineco.stock.card.lot.tree</field>
+            <field name="model">ineco.stock.card.lot</field>
+            <field name="arch" type="xml">
+                <tree string="Stock Card Lot">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="product_id"/>
+                    <field name="quantity"/>
+                    <field name="cost"/>
+                    <field name="issue"/>
+                    <field name="balance"/>
+                    <field name="force_zero" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_card_lot_search" model="ir.ui.view">
+            <field name="name">ineco.stock.card.lot.search</field>
+            <field name="model">ineco.stock.card.lot</field>
+            <field name="arch" type="xml">
+                <search string="Stock Card Lot">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="product_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_ineco_stock_card_lot_form" model="ir.ui.view">
+            <field name="name">ineco.stock.card.lot.form</field>
+            <field name="model">ineco.stock.card.lot</field>
+            <field name="arch" type="xml">
+                <form string="Stock Card Lot">
+                    <header>
+                        <button name="button_compute" string="ปรับยอดคงเหลือ" type="object"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="date"/>
+                                <field name="product_id"/>
+                                <field name="cost"/>
+                            </group>
+                            <group>
+                                <field name="quantity"/>
+                                <field name="issue"/>
+                                <field name="balance"/>
+                                <field name="force_zero" />
+                            </group>
+                            <group>
+                                <field name="issue_ids">
+                                    <tree string="Issue">
+                                        <field name="name"/>
+                                        <field name="date"/>
+                                        <field name="quantity"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Stock Card -->
+        <record model="ir.actions.act_window" id="action_ineco_stock_card_lot">
+            <field name="name">Stock Card Lot</field>
+            <field name="res_model">ineco.stock.card.lot</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="view_ineco_stock_card_lot_tree"/>
+            <field name="search_view_id" ref="view_ineco_stock_card_lot_search"/>
+        </record>
+        <record id="action_ineco_stock_card_lot_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_stock_card_lot_tree"/>
+            <field name="act_window_id" ref="action_ineco_stock_card_lot"/>
+        </record>
+        <record id="action_ineco_stock_card_lot_from" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_stock_card_lot_form"/>
+            <field name="act_window_id" ref="action_ineco_stock_card_lot"/>
+        </record>
+
+        <menuitem action="action_ineco_stock_card_lot"
+                  groups="base.group_stock_card"
+                  id="menu_ineco_stock_card_lot"
+                  parent="menu_ineco_stock_card_main"
+                  sequence="20"/>
+
+        <record id="auto_get_stockcard" model="ir.cron">
+            <field name="name">Stock Card - Daily Update</field>
+            <field name="model_id" ref="model_ineco_stock_card"/>
+            <field name="state">code</field>
+            <field name="code">model.refresh_stock()</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">0</field>
+        </record>
+
+    </data>
+</odoo>

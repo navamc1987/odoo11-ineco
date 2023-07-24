@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_recompute_stock_card_form" model="ir.ui.view">
+            <field name="name">wizard.recompute.stock.card.form</field>
+            <field name="model">wizard.recompute.stock.card</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Recompute" version="7.0">
+                    <group>
+                    </group>
+                    <newline/>
+                    <footer>
+                        <button name="recompute" string="Recompute All" type="object"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_recompute_stock_card_form" model="ir.actions.act_window">
+            <field name="name">Recompute Stock Card</field>
+            <field name="res_model">wizard.recompute.stock.card</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_recompute_stock_card_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--
+        <record model="ir.values" id="action_recompute_stock_card_form_value">
+            <field name="name">Recompute Stock Card</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_recompute_stock_card_form'))"/>
+            <field name="key">action</field>
+            <field name="model">ineco.stock.card</field>
+        </record>
+        -->
+    </data>
+</odoo>

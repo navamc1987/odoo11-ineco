@@ -1,0 +1,95 @@
+drop view query_stock_transaction_odoo
+create or replace view query_stock_transaction_odoo as
+select * from (
+select
+  id,
+  stkcod,
+  docdat,
+  lunitpr as price,
+  case when lotbal > 0 then lotbal else -trnqty end as quantity,
+  docnum,
+  null as partner_id,
+  null as invoice_id
+from express_stcrd_dbf
+where
+  docdat < '2019-01-01'
+union
+
+select
+  ail.id,
+  pp.default_code as stkcod,
+  ai.date_invoice::date as docdat,
+  ail.price_unit as price,
+  case when ai.type in ('out_invoice','in_refund') then round(-ail.quantity/pu.factor,2) else round(ail.quantity/pu.factor, 2) end as quantity,
+  case when ai.type in ('out_invoice','out_refund') then ai.number else
+    case when ai.type = 'in_refund' then ai.number else ai.supplier_invoice_number end end as docnum,
+  ai.partner_id,
+  ai.id as invoice_id
+from
+  account_invoice_line ail
+  join account_invoice ai on ai.id = ail.invoice_id
+  join product_product pp on pp.id = ail.product_id
+  join product_uom pu on pu.id = ail.uos_id
+where
+  ai.state not in ('draft','cancel')
+  and ai.date_invoice >= '2019-01-01'
+  and ai.journal_id not in (49, 38, 6) --For VAT
+
+union
+
+select
+  sm.id,
+  pp.default_code as stkcod,
+  sp.date as docdat,
+  coalesce((select total_cost from stock_production_lot where id = sm.restrict_lot_id), 0.00) as price,
+  --coalesce((select value_float from ir_property where name = 'standard_price' and res_id = 'product.template,'||pp.product_tmpl_id ),0.00) as price,
+  case when sl.usage = 'production' then -sm.product_qty else sm.product_qty end as quantity,
+  sp.origin as docnum,
+  null as partner_id,
+  null as invoice_id
+from  stock_picking  sp
+left join stock_move sm on sm.picking_id = sp.id
+left join stock_location sl on sl.id = sm.location_dest_id
+left join stock_location sl2 on sl2.id = sm.location_id
+join product_product pp on pp.id = sm.product_id
+where
+ sm.state = 'done'
+and (sl.name ='Production' or sl2.name = 'Production')
+and sp.date >= '2019-01-01'
+) raw
+order by docdat, docnum, id
+
+
+--drop view query_fifo_price
+create or replace view query_fifo_price as
+SELECT id, stkcod, docdat, qty_sold, docnum
+    , round((cum_sold_cost - coalesce(lag(cum_sold_cost) over w, 0))/qty_sold, 4) as fifo_price
+FROM (
+    SELECT id, tneg.stkcod, docdat, docnum, qty_sold, tpos.qty_bought, prev_bought, total_cost, prev_total_cost
+        , round(prev_total_cost + ((tneg.cum_sold - tpos.prev_bought)/(tpos.qty_bought - tpos.prev_bought))*(total_cost-prev_total_cost), 5) as cum_sold_cost
+    FROM (
+      SELECT id, stkcod, docdat, docnum, -quantity as qty_sold
+          , sum(-quantity) over w as cum_sold
+      FROM query_stock_transaction_odoo
+      WHERE quantity < 0
+      WINDOW w AS (PARTITION BY stkcod ORDER BY docdat, docnum, id)
+    ) tneg
+    LEFT JOIN (
+      SELECT stkcod
+          , round(sum(quantity) over w,2) as qty_bought
+          , round(coalesce(sum(quantity) over prevw, 0),2) as prev_bought
+          , round(quantity * price::numeric, 5) as cost
+          , round(sum(quantity * price::numeric) over w, 5) as total_cost
+          , round(coalesce(sum(quantity * price::numeric) over prevw, 0),5) as prev_total_cost
+      FROM query_stock_transaction_odoo
+      WHERE quantity > 0
+      WINDOW w AS (PARTITION BY stkcod ORDER BY docdat, docnum, id)
+          , prevw AS (PARTITION BY stkcod ORDER BY docdat, docnum, id ROWS BETWEEN unbounded preceding AND 1 preceding)
+    ) tpos
+    ON tneg.cum_sold BETWEEN tpos.prev_bought AND tpos.qty_bought
+        AND tneg.stkcod = tpos.stkcod
+    ) t
+--where stkcod = 'A-CLE-003-4'
+WINDOW w AS (PARTITION BY stkcod ORDER BY docdat, docnum, id)
+
+

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="base.group_stock_card" model="res.groups">
+            <field name="name">Menu Stock Card</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+            <field name="comment">Stock Card Menu</field>
+        </record>
+
+        <record id="security_ineco_stock_card" model="ir.model.access">
+            <field name="name">ineco.stock.card</field>
+            <field name="group_id" ref="base.group_stock_card"/>
+            <field name="model_id" ref="ineco_stock_card.model_ineco_stock_card"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="security_ineco_stock_card_product" model="ir.model.access">
+            <field name="name">ineco.stock.card.product</field>
+            <field name="group_id" ref="base.group_stock_card"/>
+            <field name="model_id" ref="ineco_stock_card.model_ineco_stock_card_product"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="security_ineco_stock_card_product_line" model="ir.model.access">
+            <field name="name">ineco.stock.card.product.line</field>
+            <field name="group_id" ref="base.group_stock_card"/>
+            <field name="model_id" ref="ineco_stock_card.model_ineco_stock_card_product_line"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+        <record id="security_ineco_stock_card_product_line_issue" model="ir.model.access">
+            <field name="name">ineco.stock.card.product.line.issue</field>
+            <field name="group_id" ref="base.group_stock_card"/>
+            <field name="model_id" ref="ineco_stock_card.model_ineco_stock_card_product_line_issue"/>
+            <field name="perm_read" eval="1"/>
+            <field name="perm_write" eval="1"/>
+            <field name="perm_create" eval="1"/>
+            <field name="perm_unlink" eval="1"/>
+        </record>
+
+    </data>
+</openerp>

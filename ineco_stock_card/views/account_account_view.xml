@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Account -->
+
+        <record model="ir.ui.view" id="view_ineco_stock_card_account_form">
+            <field name="name">ineco.stockcard.account.account.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="user_type" position="after">
+                    <field name="inventory_ok"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
