@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+
+        <record id="ineco_discount_invoice_form" model="ir.ui.view">
+            <field name="name">ineco.discount.account.invoice.form</field>
+            <field name="model">account.invoice</field>
+             <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="before">
+                    <field name="discount2" placeholder="10%"/>
+                    <field name="discount_float" placeholder="8"/>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="ineco_discount_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">ineco.discount.account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+             <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='discount']" position="before">
+                    <field name="discount2" placeholder="10%"/>
+                    <field name="discount_float" placeholder="8"/>
+                </xpath>
+
+                <field name="partner_id" position="before">
+                    <field name="ineco_amount_rounding" invisible="1" />
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</openerp>
