@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_wizard_sell_cash_form" model="ir.ui.view">
+        <field name="name">view_wizard_sell_cash_form</field>
+        <field name="model">wizard.sell.cash</field>
+        <field name="arch" type="xml">
+            <form string="Make Deposits">
+                <p class="oe_grey">
+                    Deposit will be created in draft so that you can review
+                    them before validation.
+                </p>
+                <group>
+                    <field name="type_vat"/>
+                </group>
+                <footer>
+                    <button name="create_pay" string="จ่ายเงินสด" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="action_view_wizard_sell_cash_form"
+                name="จ่ายชำระเงินสด"
+                src_model="account.invoice"
+                res_model="wizard.sell.cash"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+
+</odoo>

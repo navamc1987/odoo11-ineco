@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="ineco_iv_form" model="ir.ui.view">
+            <field name="name">ineco.iv.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                       <button name="action_invoice_open" type="object" states="draft" string="Validate"
+                                class="oe_highlight o_invoice_validate" groups="account.group_account_invoice"/>
+                        <button name="%(account.action_account_invoice_refund)d" type='action'
+                                string='Ask for a Credit Note'
+                                groups="account.group_account_invoice"
+                                attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','paid'))]}"/>
+
+                        <button name="%(ineco_customer_debit_notes.action_wizard_sale_make_add_debit)d" type='action'
+                                string='Create Customer Debit Note'
+                                groups="account.group_account_invoice"
+                                attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','paid'))]}"/>
+
+                        <button name="%(ineco_customer_debit_notes.action_view_wizard_sell_cash_form)d" type='action'
+                                string='ชำระเงินสด'
+                                groups="account.group_account_invoice"
+                                attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','paid'))]}"/>
+
+                        <button name="action_invoice_draft" states="cancel" string="Set to Draft" type="object"
+                                groups="base.group_system"/>
+
+                        <button name="action_invoice_cancel" type="object" states="draft,open" string="Cancel Invoice" groups="account.group_account_invoice"/>
+
+                        <button name="InecoReconcile" type="object"
+                                 attrs="{'invisible': ['|',('refund_invoice_id','=',False),('state','!=','open')]}" string="ตัดหนี้อ้างอิงใบกำกับ" groups="account.group_account_invoice"/>
+                        <field name="refund_invoice_id" invisible="1"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,paid"/>
+                    </header>
+                </xpath>
+
+
+            </field>
+        </record>
+
+<!--        แก้ domain ไม่เอาเพิ่มหนี้-->
+        <record id="account.action_invoice_tree1" model="ir.actions.act_window">
+            <field name="name">Customer Invoices</field>
+            <field name="res_model">account.invoice</field>
+            <field name="domain">[('type','=','out_invoice'),('is_add_cus_debit','!=',True)]</field>
+        </record>
+
+
+
+
+
+
+
+    </data>
+</odoo>

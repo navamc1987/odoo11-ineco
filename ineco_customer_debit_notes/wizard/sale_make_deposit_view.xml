@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="view_sale_make_add_debit_form" model="ir.ui.view">
+            <field name="name">view_sale_make_deposit_form</field>
+            <field name="model">sale.make.add.debit</field>
+            <field name="arch" type="xml">
+                <form string="Make Deposits">
+                    <p class="oe_grey">
+                        Deposit will be created in draft so that you can review
+                        them before validation.
+                    </p>
+                    <group>
+                        <field name="invoice_filter_type_domain"  invisible="1"/>
+                        <field name="journal_id" domain="[('type', '=?', invoice_filter_type_domain)]"
+                                options="{'no_create': True, 'no_open': True}"/>
+                        <field name="note" />
+                    </group>
+                    <footer>
+                        <button name="create_invoices" string="สร้างการเพิ่มหนี้" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window id="action_wizard_sale_make_add_debit"
+                name="Create Customer Debit Note"
+                src_model="account.invoice"
+                res_model="sale.make.add.debit"
+                view_mode="form"
+                target="new"
+                key2="client_action_multi"/>
+
+</odoo>
