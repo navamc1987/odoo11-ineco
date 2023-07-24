@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_ineco_account_asset_asset_form">
+            <field name="name">ineco.account.asset.asset.form</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="date_depreciation" required="1"/>
+                    <field name="code_name"/>
+                    <field name="percent"/>
+                </field>
+                <field name="value" position="after">
+                    <field name="max_asset_value"/>
+                    <field name="sale_date" />
+                    <field name="sale_amount" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_ineco_account_asset_asset_tree">
+            <field name="name">ineco.account.asset.asset.tree</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_purchase_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="code_name"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="code"/>
+                </field>
+                <field name="date" position="after">
+                    <field name="date_depreciation"/>
+                    <field name="sale_date" />
+                </field>
+            </field>
+        </record>
+
+        <record id="ineco_view_account_asset_search" model="ir.ui.view">
+            <field name="name">ineco.account.asset.asset.search</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="date_depreciation"/>
+                    <field name="code_name"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="recompute_depreciation" model="ir.cron">
+            <field name="name">Recompute Asset Depreciation</field>
+            <field name="model_id" ref="model_account_asset_asset"/>
+            <field name="state">code</field>
+            <field name="code">model.recompute_depreciation_schedule()</field>
+            <field name='interval_number'>1</field>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">0</field>
+        </record>
+    </data>
+</odoo>
