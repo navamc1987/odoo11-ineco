@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Geography -->
+        <record model="ineco.geography" id="geo_id_1">
+            <field name="code">1</field>
+            <field name="name">ภาคเหนือ</field>
+        </record>
+        <record model="ineco.geography" id="geo_id_2">
+            <field name="code">2</field>
+            <field name="name">ภาคกลาง</field>
+        </record>
+        <record model="ineco.geography" id="geo_id_3">
+            <field name="code">3</field>
+            <field name="name">ภาคตะวันออกเฉียงเหนือ</field>
+        </record>
+        <record model="ineco.geography" id="geo_id_4">
+            <field name="code">4</field>
+            <field name="name">ภาคตะวันตก</field>
+        </record>
+        <record model="ineco.geography" id="geo_id_5">
+            <field name="code">5</field>
+            <field name="name">ภาคตะวันออก</field>
+        </record>
+        <record model="ineco.geography" id="geo_id_6">
+            <field name="code">6</field>
+            <field name="name">ภาคใต้</field>
+        </record>
+
+        <!-- Province -->
+
+        <record model="ineco.province" id="province_id_1">
+            <field name="code">10</field>
+            <field name="name">กรุงเทพมหานคร</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_2">
+            <field name="code">11</field>
+            <field name="name">สมุทรปราการ</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_3">
+            <field name="code">12</field>
+            <field name="name">นนทบุรี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_4">
+            <field name="code">13</field>
+            <field name="name">ปทุมธานี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_5">
+            <field name="code">14</field>
+            <field name="name">พระนครศรีอยุธยา</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_6">
+            <field name="code">15</field>
+            <field name="name">อ่างทอง</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_7">
+            <field name="code">16</field>
+            <field name="name">ลพบุรี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_8">
+            <field name="code">17</field>
+            <field name="name">สิงห์บุรี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_9">
+            <field name="code">18</field>
+            <field name="name">ชัยนาท</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_10">
+            <field name="code">19</field>
+            <field name="name">สระบุรี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_11">
+            <field name="code">20</field>
+            <field name="name">ชลบุรี</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_12">
+            <field name="code">21</field>
+            <field name="name">ระยอง</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_13">
+            <field name="code">22</field>
+            <field name="name">จันทบุรี</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_14">
+            <field name="code">23</field>
+            <field name="name">ตราด</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_15">
+            <field name="code">24</field>
+            <field name="name">ฉะเชิงเทรา</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_16">
+            <field name="code">25</field>
+            <field name="name">ปราจีนบุรี</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_17">
+            <field name="code">26</field>
+            <field name="name">นครนายก</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_18">
+            <field name="code">27</field>
+            <field name="name">สระแก้ว</field>
+            <field name="geo_id" ref="geo_id_5"/>
+        </record>
+        <record model="ineco.province" id="province_id_19">
+            <field name="code">30</field>
+            <field name="name">นครราชสีมา</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_20">
+            <field name="code">31</field>
+            <field name="name">บุรีรัมย์</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_21">
+            <field name="code">32</field>
+            <field name="name">สุรินทร์</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_22">
+            <field name="code">33</field>
+            <field name="name">ศรีสะเกษ</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_23">
+            <field name="code">34</field>
+            <field name="name">อุบลราชธานี</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_24">
+            <field name="code">35</field>
+            <field name="name">ยโสธร</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_25">
+            <field name="code">36</field>
+            <field name="name">ชัยภูมิ</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_26">
+            <field name="code">37</field>
+            <field name="name">อำนาจเจริญ</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_27">
+            <field name="code">39</field>
+            <field name="name">หนองบัวลำภู</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_28">
+            <field name="code">40</field>
+            <field name="name">ขอนแก่น</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_29">
+            <field name="code">41</field>
+            <field name="name">อุดรธานี</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_30">
+            <field name="code">42</field>
+            <field name="name">เลย</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_31">
+            <field name="code">43</field>
+            <field name="name">หนองคาย</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_32">
+            <field name="code">44</field>
+            <field name="name">มหาสารคาม</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_33">
+            <field name="code">45</field>
+            <field name="name">ร้อยเอ็ด</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_34">
+            <field name="code">46</field>
+            <field name="name">กาฬสินธุ์</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_35">
+            <field name="code">47</field>
+            <field name="name">สกลนคร</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_36">
+            <field name="code">48</field>
+            <field name="name">นครพนม</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_37">
+            <field name="code">49</field>
+            <field name="name">มุกดาหาร</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+        <record model="ineco.province" id="province_id_38">
+            <field name="code">50</field>
+            <field name="name">เชียงใหม่</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_39">
+            <field name="code">51</field>
+            <field name="name">ลำพูน</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_40">
+            <field name="code">52</field>
+            <field name="name">ลำปาง</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_41">
+            <field name="code">53</field>
+            <field name="name">อุตรดิตถ์</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_42">
+            <field name="code">54</field>
+            <field name="name">แพร่</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_43">
+            <field name="code">55</field>
+            <field name="name">น่าน</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_44">
+            <field name="code">56</field>
+            <field name="name">พะเยา</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_45">
+            <field name="code">57</field>
+            <field name="name">เชียงราย</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_46">
+            <field name="code">58</field>
+            <field name="name">แม่ฮ่องสอน</field>
+            <field name="geo_id" ref="geo_id_1"/>
+        </record>
+        <record model="ineco.province" id="province_id_47">
+            <field name="code">60</field>
+            <field name="name">นครสวรรค์</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_48">
+            <field name="code">61</field>
+            <field name="name">อุทัยธานี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_49">
+            <field name="code">62</field>
+            <field name="name">กำแพงเพชร</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_50">
+            <field name="code">63</field>
+            <field name="name">ตาก</field>
+            <field name="geo_id" ref="geo_id_4"/>
+        </record>
+        <record model="ineco.province" id="province_id_51">
+            <field name="code">64</field>
+            <field name="name">สุโขทัย</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_52">
+            <field name="code">65</field>
+            <field name="name">พิษณุโลก</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_53">
+            <field name="code">66</field>
+            <field name="name">พิจิตร</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_54">
+            <field name="code">67</field>
+            <field name="name">เพชรบูรณ์</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_55">
+            <field name="code">70</field>
+            <field name="name">ราชบุรี</field>
+            <field name="geo_id" ref="geo_id_4"/>
+        </record>
+        <record model="ineco.province" id="province_id_56">
+            <field name="code">71</field>
+            <field name="name">กาญจนบุรี</field>
+            <field name="geo_id" ref="geo_id_4"/>
+        </record>
+        <record model="ineco.province" id="province_id_57">
+            <field name="code">72</field>
+            <field name="name">สุพรรณบุรี</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_58">
+            <field name="code">73</field>
+            <field name="name">นครปฐม</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_59">
+            <field name="code">74</field>
+            <field name="name">สมุทรสาคร</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_60">
+            <field name="code">75</field>
+            <field name="name">สมุทรสงคราม</field>
+            <field name="geo_id" ref="geo_id_2"/>
+        </record>
+        <record model="ineco.province" id="province_id_61">
+            <field name="code">76</field>
+            <field name="name">เพชรบุรี</field>
+            <field name="geo_id" ref="geo_id_4"/>
+        </record>
+        <record model="ineco.province" id="province_id_62">
+            <field name="code">77</field>
+            <field name="name">ประจวบคีรีขันธ์</field>
+            <field name="geo_id" ref="geo_id_4"/>
+        </record>
+        <record model="ineco.province" id="province_id_63">
+            <field name="code">80</field>
+            <field name="name">นครศรีธรรมราช</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_64">
+            <field name="code">81</field>
+            <field name="name">กระบี่</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_65">
+            <field name="code">82</field>
+            <field name="name">พังงา</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_66">
+            <field name="code">83</field>
+            <field name="name">ภูเก็ต</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_67">
+            <field name="code">84</field>
+            <field name="name">สุราษฎร์ธานี</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_68">
+            <field name="code">85</field>
+            <field name="name">ระนอง</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_69">
+            <field name="code">86</field>
+            <field name="name">ชุมพร</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_70">
+            <field name="code">90</field>
+            <field name="name">สงขลา</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_71">
+            <field name="code">91</field>
+            <field name="name">สตูล</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_72">
+            <field name="code">92</field>
+            <field name="name">ตรัง</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_73">
+            <field name="code">93</field>
+            <field name="name">พัทลุง</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_74">
+            <field name="code">94</field>
+            <field name="name">ปัตตานี</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_75">
+            <field name="code">95</field>
+            <field name="name">ยะลา</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_76">
+            <field name="code">96</field>
+            <field name="name">นราธิวาส</field>
+            <field name="geo_id" ref="geo_id_6"/>
+        </record>
+        <record model="ineco.province" id="province_id_77">
+            <field name="code">97</field>
+            <field name="name">บึงกาฬ</field>
+            <field name="geo_id" ref="geo_id_3"/>
+        </record>
+
+    </data>
+</openerp>

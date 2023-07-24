@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_ineco_district_tree" model="ir.ui.view">
+            <field name="name">ineco.district.tree</field>
+            <field name="model">ineco.district</field>
+            <field name="arch" type="xml">
+                <tree string="Distinct" editable="top">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="amphur_id"/>
+                    <field name="province_id"/>
+                    <field name="geo_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_district_search" model="ir.ui.view">
+            <field name="name">ineco.district.search</field>
+            <field name="model">ineco.district</field>
+            <field name="arch" type="xml">
+                <search string="Distinct">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="amphur_id"/>
+                    <field name="province_id"/>
+                    <field name="geo_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_ineco_amphur_tree" model="ir.ui.view">
+            <field name="name">ineco.amphur.tree</field>
+            <field name="model">ineco.amphur</field>
+            <field name="arch" type="xml">
+                <tree string="Amphur" editable="top">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="province_id"/>
+                    <field name="geo_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_province_tree" model="ir.ui.view">
+            <field name="name">ineco.province.tree</field>
+            <field name="model">ineco.province</field>
+            <field name="arch" type="xml">
+                <tree string="Province" editable="top">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="geo_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_zipcode_tree" model="ir.ui.view">
+            <field name="name">ineco.zipcode.tree</field>
+            <field name="model">ineco.zipcode</field>
+            <field name="arch" type="xml">
+                <tree string="Zipcode" editable="top">
+                    <field name="name"/>
+                    <field name="district_id"/>
+                    <field name="amphur_id"/>
+                    <field name="province_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_ineco_geography_partner_form" model="ir.ui.view">
+            <field name="name">ineco.geography.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="street2" position="attributes">
+                    <!--                    <attribute name="invisible">1</attribute>-->
+                    <attribute name="attrs">{'invisible': [('use_thai_style','=',True)]}</attribute>
+                </field>
+                <field name="city" position="attributes">
+                    <!--                    <attribute name="invisible">1</attribute>-->
+                    <attribute name="attrs">{'invisible': [('use_thai_style','=',True)]}</attribute>
+                </field>
+                <field name="state_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="street2" position="before">
+                    <field name="district_id" required="0" placeholder="แขวง/ตำบล" class="o_address_street"
+                           context="{'show_fully': 1}" options='{"no_open": true}'
+                           attrs="{'invisible': [('use_thai_style','=',False)]}"/>
+                    <field name="amphur_id" placeholder="เขต/อำเภอ" class="o_address_city" options='{"no_open": true}'
+                           attrs="{'invisible': [('use_thai_style','=',False)]}"/>
+                    <field name="province_id" placeholder="จังหวัด" class="o_address_state" options='{"no_open": true}'
+                           attrs="{'invisible': [('use_thai_style','=',False)]}"/>
+                </field>
+                <field name="vat" position="before">
+                    <field name="use_thai_style" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_ineco_geography_partner_tree" model="ir.ui.view">
+            <field name="name">ineco.geography.res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="display_name" position="after">
+                    <field name="district_id"/>
+                    <field name="amphur_id"/>
+                    <field name="province_id"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_ineco_geography_res_partner_filter" model="ir.ui.view">
+            <field name="name">ienco.geography.res.partner.select</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="district_id" string="แขวง/ตำบล"/>
+                    <field name="amphur_id" string="เขต/อำเภอ"/>
+                    <field name="province_id" string="จังหวัด"/>
+                </field>
+            </field>
+        </record>
+
+        <menuitem id="menu_ineco_geography" name="Thailand Geography"
+                  parent="contacts.res_partner_menu_config" sequence="7"
+                  groups="base.group_erp_manager"/>
+
+        <record id="action_ineco_province" model="ir.actions.act_window">
+            <field name="name">จังหวัด</field>
+            <field name="res_model">ineco.province</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_ineco_province"
+                  name="จังหวัด"
+                  parent="menu_ineco_geography"
+                  action="action_ineco_province"
+                  sequence="10"
+                  groups="base.group_user"/>
+
+        <record id="action_ineco_amphur" model="ir.actions.act_window">
+            <field name="name">อำเภอ</field>
+            <field name="res_model">ineco.amphur</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_ineco_amphur"
+                  name="อำเภอ"
+                  parent="menu_ineco_geography"
+                  action="action_ineco_amphur"
+                  sequence="20"
+                  groups="base.group_user"/>
+
+        <record id="action_ineco_district" model="ir.actions.act_window">
+            <field name="name">ตำบล</field>
+            <field name="res_model">ineco.district</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_ineco_district"
+                  name="ตำบล"
+                  parent="menu_ineco_geography"
+                  action="action_ineco_district"
+                  sequence="30"
+                  groups="base.group_user"/>
+
+        <record id="action_ineco_zipcode" model="ir.actions.act_window">
+            <field name="name">รหัสไปรษณีย์</field>
+            <field name="res_model">ineco.zipcode</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="menu_ineco_zipcode"
+                  name="รหัสไปรษณีย์"
+                  parent="menu_ineco_geography"
+                  action="action_ineco_zipcode"
+                  sequence="40"
+                  groups="base.group_user"/>
+
+    </data>
+</openerp>
