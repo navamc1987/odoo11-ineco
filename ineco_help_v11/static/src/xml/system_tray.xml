@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="ineco.youtube">
+        <div id="youtube-modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" style="top: 15%;" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <iframe width="100%" height="480"
+                                t-attf-src="{{widget.url}}">
+                        </iframe>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="ineco.help.ActivityMenu">
+        <li class="o_ineco_help_navbar_item">
+            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" title="วิธีการใช้โปรแกรม" href="#">
+                <i class="fa fa-youtube-play"/>
+                <span class="o_notification_counter badge"/>
+            </a>
+            <div class="youtube-views" />
+        </li>
+    </t>
+
+</templates>
