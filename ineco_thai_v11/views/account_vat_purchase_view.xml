@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <record id="view_ineco_purchase_vat_tree" model="ir.ui.view">
+            <field name="name">ineco.account.vat.tree</field>
+            <field name="model">ineco.account.vat</field>
+            <field name="arch" type="xml">
+                <tree string="Billing" create="false" edit="0" delete="false" editable="bottom">
+                    <field name="name" readonly="1"/>
+                    <field name="invoice_id" string="เอกสารตั้งหนี้" readonly="1"/>
+                    <field name="docdat" readonly="1"/>
+                    <field name="vatprd" readonly="1"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="taxid" readonly="1"/>
+                    <field name="depcod" readonly="1"/>
+                    <field name="amount_untaxed" readonly="1"/>
+                    <field name="amount_tax" readonly="1" sum="รวมภาษี"/>
+                    <field name="amount_total" readonly="1" sum="รวมมูลค่า"/>
+                    <field name="late" readonly="1"/>
+                    <field name="remark"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_purchase_vat_search" model="ir.ui.view">
+            <field name="name">ineco.purchase.vat.search</field>
+            <field name="model">ineco.account.vat</field>
+            <field name="arch" type="xml">
+                <search string="Billing">
+                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="invoice_id" string="เอกสารตั้งหนี้"/>
+                    <filter string="ระบุ" name="ready" domain="[('vatprd','!=', False)]"/>
+                    <filter string="ไม่ระบุ" name="false_vat" domain="[('vatprd','=', False)]"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="บิลเดือน" icon="terp-go-month" domain="[]"
+                                context="{'group_by':'docdat'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_view_ineco_purchase_vat" model="ir.actions.act_window">
+            <field name="name">ภาษีซื้อ(พัก)</field>
+            <field name="res_model">ineco.account.vat</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_purchase_vat_tree"/>
+            <field name="context">{'search_default_false_vat': True}</field>
+            <field name="domain">[('tax_purchase_wait_ok','=',True),('move_line_id','!=',False)]</field>
+        </record>
+
+        <!--        <menuitem-->
+        <!--                id="menu_root_view_ineco_purchase_vat"-->
+        <!--                name="ภาษีซื้อ"-->
+        <!--                parent="account.menu_finance_payables"-->
+        <!--                sequence="100"-->
+
+        <menuitem action="action_view_ineco_purchase_vat" id="menu_action_view_ineco_purchase_vat"
+                  parent="menu_root_view_ineco_purchase_vat" sequence="0"/>
+
+    </data>
+</odoo>

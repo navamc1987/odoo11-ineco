@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_input_tax" model="ir.ui.view">
+            <field name="name">view_wizard_input_tax</field>
+            <field name="model">wizard.input.tax</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Create Purchase Tax" version="7.0">
+                    <group>
+                        <group>
+                            <field name="vatprd" required="1"/>
+                            <field name="journal_id" options="{'no_create': True}" domain="[('type','=','general'),('input_tax','=',True)]"/>
+                        </group>
+                        <newline/>
+                        <field name="item_ids" nolabel="1" colspan="2">
+                            <tree string="Details" create="false" delete="0" editable="bottom">
+                                <field name="name" />
+                                <field name="ineco_vat" invisible="1"/>
+                                <field name="account_id"  invisible="1"/>
+                                <field name="invoice_id" string="เอกสารตั้งหนี้" invisible="1"/>
+                                <field name="docdat" />
+                                <field name="partner_id" invisible="1"/>
+                                <field name="partner_name" invisible="0"/>
+                                <field name="taxid" />
+                                <field name="depcod"/>
+                                <field name="amount_untaxed" readonly="0"/>
+                                <field name="amount_tax" readonly="0"/>
+                                <field name="amount_total" readonly="0"/>
+
+                            </tree>
+                        </field>
+
+                    </group>
+                    <footer>
+                        <button name="create_po_tax" string="ยื่นภาษีซื้อ" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window id="action_wizard_input_tax"
+                    name="กลับภาษี1:1"
+                    src_model="ineco.account.vat"
+                    res_model="wizard.input.tax"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
+
+
+    </data>
+</openerp>
+

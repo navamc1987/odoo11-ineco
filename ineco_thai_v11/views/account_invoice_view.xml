@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <record id="ineco_deposit_iv_form" model="ir.ui.view">
+            <field name="name">ineco.deposit.iv.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+
+                <field name="move_name" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="string">แก้ไขเลขที่เอกสาร*</attribute>
+                    <attribute name="groups">ineco_thai_v11.group_edit_name_iv</attribute>
+                    <attribute name="attrs">{'readonly':[('state', '!=', 'draft')]}</attribute>
+                </field>
+
+                <field name="journal_id" position="replace">
+                </field>
+
+
+                <field name="move_name" position="after">
+                    <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}"
+                           attrs="{'readonly':[('move_name','!=',False)]}"/>
+                    <field name="ex_sale" readonly="1"
+                           attrs="{'invisible':[('ex_sale','!=',True)]}"
+                           />
+                    <button name="action_invoice_cancel_ex" type="object"
+                            attrs="{'invisible':['|',('ex_sale','!=',True),('state','!=','paid')]}"
+                            string="ยกเลิกขายตัวอย่าง" groups="account.group_account_invoice"/>
+                </field>
+
+
+                <field name="payment_term_id" position="replace">
+                </field>
+
+                <field name="move_name" position="after">
+                    <field name="payment_term_id" options="{'no_create': True}"/>
+                    <field name="taxes_id" attrs="{'readonly': [('state','not in',['draft'])]}"
+                           domain="[('type_tax_use', '=', 'sale'), '|', ('active', '=', False),
+                                       ('active', '=', True)]"
+                           options='{"no_open": True, "no_create": True}'/>
+                </field>
+
+                <!--                <field name="currency_id" position="before">-->
+                <!--                    <field name="taxes_id" attrs="{'readonly': [('state','not in',['draft'])]}"/>-->
+
+                <!--                </field>-->
+
+
+                <xpath expr="//page[@name='other_info']" position="after">
+                    <page string="เงินมัดจำ">
+                        <field name="deposit_ids" attrs="{'readonly':[('state', 'not in', ('draft', 'cancel'))]}">
+                            <tree string="มัดจำ" editable="bottom">
+                                <field name="name"
+                                       domain="[('customer_id','=',parent.partner_id),('amount_residual','>',0.00) ]"/>
+                                <field name="amount_total" readonly="0"/>
+                                <field name="amount_residual" sum="Deposit Residual" readonly="0"/>
+                                <field name="amount_receipt" sum="Deposit"
+                                       on_change="onchange_amount_receipt(amount_receipt)"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <notebook position="inside">
+                    <page string="ภาษีขาย">
+                        <field name="ineco_vat_sale_ids" readonly="1">
+                            <tree create="0" edit="0" delete="0" >
+                                <field name="name"/>
+                                <field name="docdat"/>
+                                <field name="vatprd"/>
+                                <field name="partner_name"/>
+                                <field name="taxid"/>
+                                <field name="depcod"/>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <field name="amount_total"/>
+                                <field name="remark"/>
+<!--                                <field name="reconciliation_in" readonly="1"/>-->
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="General Ledger" attrs="{'invisible': [('move_id','=',False)]}">
+                        <field name="account_move_lines" readonly="1">
+                            <tree string="General ledgers">
+                                <field name="account_id"/>
+                                <field name="debit" sum="Total Debit"/>
+                                <field name="credit" sum="Total Credit"/>
+                                <field name="analytic_account_id" invisible="1"/>
+                                <field name="quantity" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+                <xpath expr="//field[@name='amount_rounding']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+                <xpath expr="//field[@name='outstanding_credits_debits_widget']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <!--                <field name="cash_rounding_id" position="after">-->
+                <!--                    <field name="type_vat" groups="base.group_no_one"/>-->
+                <!--                </field>-->
+            </field>
+        </record>
+
+        <record id="ineco_deposit_supplier_form" model="ir.ui.view">
+            <field name="name">ineco.deposit.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <field name="move_name" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="string">แก้ไขเลขที่เอกสาร*</attribute>
+                    <attribute name="groups">ineco_thai_v11.group_edit_name_iv</attribute>
+                    <attribute name="attrs">{'readonly':[('state', '!=', 'draft')]}</attribute>
+                </field>
+
+                <field name="journal_id" position="replace">
+                </field>
+
+                <field name="move_name" position="after">
+                    <field name="journal_id" groups="account.group_account_user" options="{'no_create': True}"
+                           attrs="{'readonly':[('move_name','!=',False)]}"/>
+                </field>
+
+
+                <field name="payment_term_id" position="replace">
+                </field>
+
+                <field name="move_name" position="after">
+                    <field name="payment_term_id" options="{'no_create': True}"/>
+                </field>
+
+                <field name="currency_id" position="before">
+                    <field name="taxes_id" attrs="{'readonly': [('state','not in',['draft'])]}"
+                           domain="[('type_tax_use', '!=', 'sale'), '|', ('active', '=', False),
+                                       ('active', '=', True)]"
+                           options='{"no_open": True, "no_create": True}'/>
+
+                </field>
+
+
+                <xpath expr="//page[@name='other_info']" position="after">
+                    <page string="เงินมัดจำ">
+                        <field name="supplier_deposit_ids"
+                               attrs="{'readonly':[('state', 'not in', ('draft', 'cancel'))]}">
+                            <tree string="มัดจำ" editable="bottom">
+                                <field name="name"
+                                       domain="[('partner_id','=',parent.partner_id),
+                                       ('amount_residual','>',0.00)]"
+                                       options="{'no_create_edit': True, 'no_open': True}"/>
+                                <field name="amount_total" readonly="0"/>
+                                <field name="amount_residual" sum="Deposit Residual" readonly="0"/>
+                                <field name="amount_receipt" sum="Deposit"
+                                       on_change="onchange_amount_receipt(amount_receipt)"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="ภาษีซื้อพัก"  attrs="{'invisible':[('tax_purchase_wait_ok','=',False)]}">
+                        <field name="tax_purchase_wait_ok" invisible="1"/>
+                        <button name="InecoCreateVat" string="สร้างภาษีพัก" type="object"
+                                attrs="{'invisible':['|',('tax_purchase_wait_ok','=',False),('ineco_vat_ids','!=',[])]}"
+                         />
+                        <button name="button_vat_ok" string="ยื่นยัน" type="object"
+                                attrs="{'invisible':['|',('ineco_vat_ids','=',[]),('is_vat','=',True)]}"
+                         />
+                        <button name="button_vat_edit" string="แก้ไข" type="object"
+                                attrs="{'invisible':['|',('state', 'not in', ('draft')),('is_vat','=',False)]}"
+                         />
+                        <field name="is_vat" invisible="1" />
+                        <field name="ineco_vat_ids" attrs="{'readonly':['|',('state', 'not in', ('draft', 'cancel')),('is_vat','=',True)]}">
+                            <tree editable="bottom" create="false" edit="1" delete="1" >
+                                <field name="name"/>
+                                <field name="docdat"/>
+                                <field name="partner_name"/>
+                                <field name="taxid"/>
+                                <field name="depcod"/>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <button string="Split" name="%(action_split_vat_line)d" type="action"
+                                            class="oe_highlight" icon="fa-random"
+                                            attrs="{'invisible':[('parent.is_vat','=',True)]}"/>
+                                <field name="amount_total"/>
+                                <field name="remark"/>
+
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="ภาษีซื้อ">
+                        <field name="ineco_vat_purchase_ids" readonly="0">
+                            <tree create="0" edit="0" delete="0" >
+                                <field name="name"/>
+                                <field name="docdat"/>
+                                <field name="vatprd"/>
+                                <field name="partner_name"/>
+                                <field name="taxid"/>
+                                <field name="depcod"/>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <field name="amount_total"/>
+                                <field name="remark"/>
+                                <field name="reconciliation_in" readonly="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+                <notebook position="inside">
+                    <page string="General Ledger" attrs="{'invisible': [('move_id','=',False)]}">
+                        <field name="account_move_lines" readonly="1">
+                            <tree string="General ledgers">
+                                <field name="account_id"/>
+                                <field name="debit" sum="Total Debit"/>
+                                <field name="credit" sum="Total Credit"/>
+                                <field name="analytic_account_id" invisible="1"/>
+                                <field name="quantity" invisible="1"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+
+                <xpath expr="//field[@name='amount_rounding']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='outstanding_credits_debits_widget']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="ineco_supplier_form" model="ir.ui.view">
+            <field name="name">ineco.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_tree"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="partner_code"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

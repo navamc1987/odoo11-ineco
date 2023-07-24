@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Supplier Deposit -->
+        <record id="view_ineco_supplier_deposit_form" model="ir.ui.view">
+            <field name="name">ineco.supplier.deposit.form</field>
+            <field name="model">ineco.supplier.deposit</field>
+            <field name="arch" type="xml">
+                <form string="Billing" version="7.0">
+                    <header>
+                        <button name="button_post" string="Post" type="object" states="draft"/>
+                        <button name="button_draft" string="To draft" type="object" states="cancel"/>
+                        <button name="button_cancel" string="Cancel" type="object" states="post,draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,post,cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="partner_id" domain="[('supplier','=',True)]"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                <field name="po_id" domain="[('partner_id','=',partner_id),
+                                                              ('deposit_id','=',False),]"
+                                       options="{'no_open': True, 'no_create': True}"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                <field name="journal_id" domain="[('type','=','pay'),('is_deposit','=',True)]"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                <field name="move_id" readonly="1"/>
+                                <field name="change_number" groups="base.group_erp_manager" invisible="1"/>
+                                <field name="amount_paid" invisible="1"/>
+                                <field name="is_amount_residual" invisible="1"/>
+                                <field name="amount_residual"/>
+                            </group>
+                            <group>
+                                <field name="name" attrs="{'readonly':[('change_number', '=', False)]}" invisible="1"/>
+                                <field name="date" attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                <field name="date_due" attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                            </group>
+                            <group>
+                                <field name="tax_type" widget="radio"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                <label for="amount_type_tax" string="อัตราการภาษี"/>
+                                <div>
+                                    <field name="amount_type_tax" class="oe_inline"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <label string="%" class="oe_inline"/>
+                                    <!--                                        <button name="button_tax" string="คำนวนภาษีอัตโนมัติ" type="object" class="oe_inline"-->
+                                    <!--                                                attrs="{'invisible': [('state','in',('post','cancel'))]}"-->
+                                    <!--                                        />-->
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="รายการ">
+                                <field name="line_ids" nolabel="1" colspan="4"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}">
+                                    <tree string="Detail" editable="top">
+                                        <field name="name"/>
+                                        <field name="amount_untaxed"/>
+                                        <field name="amount_tax"/>
+                                        <field name="amount_receipt"/>
+                                        <button name="button_trash" type="object" icon="fa-trash-o"
+                                                attrs="{'invisible': [('state','in',('post','cancel'))]}"
+                                                class="oe_right"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <group colspan="4" col="8">
+                                    <field name="amount_vat" attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_other"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_cash" attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_cheque"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_wht" attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_discount"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_receipt"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_residual"
+                                           attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                                    <field name="amount_deposit" readonly="1"/>
+                                </group>
+                            </page>
+                            <page string="เช็คจ่าย">
+                                <field name="cheque_ids" colspan="4"
+                                       context="{'default_type': 'in','default_partner_id': partner_id}"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}">
+                                    <tree string="เช็คจ่าย">
+                                        <field name="name"/>
+                                        <!--<field name="move_id"/>-->
+                                        <field name="cheque_date"/>
+                                        <field name="cheque_date_reconcile"/>
+                                        <field name="account_bank_id"/>
+                                        <field name="bank"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount" sum="Total"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="อื่นๆ">
+                                <field name="other_ids" colspan="4"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}">
+                                    <tree string="อื่นๆ ระบุ" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="amount" sum="Total"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="ภาษีมูลค่าเพิ่ม">
+                                <field name="vat_ids" colspan="4"
+                                       context="{'default_partner_id': partner_id,'default_name':name,'default_docdat':date, 'default_vat_type':'purchase'}"
+                                       attrs="{'readonly': [('state','in',('cancel'))]}">
+                                    <tree string="ภาษีมูลค่าเพิ่ม" editable="top">
+                                        <field name="name"/>
+                                        <field name="docdat"/>
+                                        <field name="vatprd"/>
+                                        <field name="partner_id"/>
+                                        <field name="taxid"/>
+                                        <field name="depcod"/>
+                                        <field name="amount_untaxed" sum="Total"/>
+                                        <field name="amount_tax" sum="Tax Total"/>
+                                        <field name="amount_total" invisible="1"/>
+                                        <field name="remark"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="ภาษีหัก ณ ที่จ่าย">
+                                <field name="wht_ids" colspan="4"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"
+                                       context="{'default_wht_type':'purchase','default_date_doc':date,'default_partner_id':partner_id}">
+                                    <tree string="With holding tax">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="date_doc"/>
+                                        <field name="partner_id"/>
+                                        <field name="base_amount" sum="Total"/>
+                                        <field name="tax" sum="Tax"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="ประวัติการตัดชำระ">
+                                <group string="ตั้งหนี้">
+                                    <field name="supplier_deposit_pay_ids" readonly="1">
+                                        <tree>
+                                            <field name="invoice_id" string="เลขที่เอกสารตั้งหนี้"/>
+                                            <field name="payment_id" string="เลขที่จ่าย"/>
+                                            <field name="date_invoice"/>
+                                            <field name="amount_receipt"/>
+                                            <field name="state_invoice"/>
+                                            <field name="state_payment"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Note">
+                                <field name="note" nolabel="1" colspan="4"
+                                       attrs="{'readonly': [('state','in',('post','cancel'))]}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_supplier_deposit_tree" model="ir.ui.view">
+            <field name="name">ineco.supplier.deposit.tree</field>
+            <field name="model">ineco.supplier.deposit</field>
+            <field name="arch" type="xml">
+                <tree string="Supplier Deposit">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="move_id" invisible="1"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="partner_id"/>
+                    <field name="amount_receipt"/>
+                    <!--                    <field name="amount_residual"/>-->
+                    <field name="amount_residual"/>
+                    <field name="line_ids"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_supplier_deposit_search" model="ir.ui.view">
+            <field name="name">ineco.supplier.deposit.search</field>
+            <field name="model">ineco.supplier.deposit</field>
+            <field name="arch" type="xml">
+                <search string="Supplier Deposit">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="partner_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_supplier_deposit" model="ir.actions.act_window">
+            <field name="name">จ่ายมัดจำ</field>
+            <field name="res_model">ineco.supplier.deposit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_supplier_deposit_tree"/>
+            <field name="context">{}</field>
+            <field name="domain"></field>
+            <field name="search_view_id" ref="view_ineco_supplier_deposit_search"/>
+        </record>
+
+        <menuitem action="action_ineco_supplier_deposit" id="menu_ineco_supplier_deposit"
+                  parent="account.menu_finance_payables_documents" sequence="120"/>
+
+    </data>
+</odoo>

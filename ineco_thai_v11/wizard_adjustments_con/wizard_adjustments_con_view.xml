@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="wh_wizard_adjustments_con_form" model="ir.ui.view">
+            <field name="name">wh.wizard.adjustments.con.form</field>
+            <field name="model">wh.wizard.adjustments.con</field>
+            <field name="arch" type="xml">
+                <form string="po to so" version="7.0">
+                    <group>
+                        <field name="location_id" invisible="1"/>
+                        <field name="item_ids" nolabel="1" colspan="2">
+                            <tree string="Details" create="false" editable="bottom">
+                                <field name="order_id"
+                                       options="{'no_open': true}"
+                                       invisible="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="lot_id" readonly="1"/>
+                                <field name="product_uom_qty" string="Initial Demand" readonly="1"/>
+
+                                <field name="qty_done" readonly="0" />
+
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button string="สร้าง" name="create_picking_adjust_excess" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wh_wizard_adjustmentsr_con" model="ir.actions.act_window">
+            <field name="name">ต้องการปรับรับผิด(สินค้าไม่สต๊อก)</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wh.wizard.adjustments.con</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+
+    </data>
+</openerp>

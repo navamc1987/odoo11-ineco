@@ -1,0 +1,29 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ineco_billing_account_user,Account User,ineco_thai_v11.model_ineco_billing,base.group_user,1,1,1,0
+access_ineco_cheque_account_user,Account User,ineco_thai_v11.model_ineco_cheque,base.group_user,1,1,1,1
+access_ineco_cheque_account_user,Account User,ineco_thai_v11.model_ineco_customer_deposit,base.group_user,1,1,1,1
+access_ineco_customer_deposit_line_account_user,Account User,ineco_thai_v11.model_ineco_customer_deposit_line,base.group_user,1,1,1,1
+access_ineco_customer_deposit_other_account_user,Account User,ineco_thai_v11.model_ineco_customer_deposit_other,base.group_user,1,1,1,1
+access_ineco_customer_payment_account_user,Account User,ineco_thai_v11.model_ineco_customer_payment,base.group_user,1,1,1,0
+access_ineco_customer_payment_deposit_account_user,Account User,ineco_thai_v11.model_ineco_customer_payment_deposit,base.group_user,1,1,1,0
+access_ineco_customer_payment_line_account_user,Account User,ineco_thai_v11.model_ineco_customer_payment_line,base.group_user,1,1,1,1
+access_ineco_customer_payment_other_account_user,Account User,ineco_thai_v11.model_ineco_customer_payment_other,base.group_user,1,1,1,1
+access_ineco_wht_account_user,Account User,ineco_thai_v11.model_ineco_wht,base.group_user,1,1,1,1
+access_ineco_supplier_deposit_account_user,Account User,ineco_thai_v11.model_ineco_supplier_deposit,base.group_user,1,1,1,0
+access_ineco_supplier_deposit_line_account_user,Account User,ineco_thai_v11.model_ineco_supplier_deposit_line,base.group_user,1,1,1,1
+access_ineco_supplier_deposit_other_account_user,Account User,ineco_thai_v11.model_ineco_supplier_deposit_other,base.group_user,1,1,1,1
+access_ineco_supplier_payment_account_user,Account User,ineco_thai_v11.model_ineco_supplier_payment,base.group_user,1,1,1,0
+access_ineco_supplier_payment_deposit_account_user,Account User,ineco_thai_v11.model_ineco_supplier_payment_deposit,base.group_user,1,1,1,0
+access_ineco_supplier_payment_line_account_user,Account User,ineco_thai_v11.model_ineco_supplier_payment_line,base.group_user,1,1,1,1
+access_ineco_supplier_payment_other_account_user,Account User,ineco_thai_v11.model_ineco_supplier_payment_other,base.group_user,1,1,1,1
+access_ineco_account_vat_account_user,Account User,ineco_thai_v11.model_ineco_account_vat,base.group_user,1,1,1,1
+access_ineco_wht_line_account_user,Account User,ineco_thai_v11.model_ineco_wht_line,base.group_user,1,1,1,1
+access_ineco_wht_pnd_account_user,Account User,ineco_thai_v11.model_ineco_wht_pnd,base.group_user,1,1,1,1
+access_ineco_wht_type_account_user,Account User,ineco_thai_v11.model_ineco_wht_type,base.group_user,1,1,1,0
+access_ineco_customer_payment_transfer_account_user,Account User,ineco_thai_v11.model_ineco_customer_payment_transfer,base.group_user,1,1,1,1
+
+
+bank_wizard_back_tax_user,Account User,ineco_thai_v11.model_wizard_back_tax,base.group_user,1,1,1,0
+bank_wizard_back_tax_line_user,Account User,ineco_thai_v11.model_wizard_back_tax_line,base.group_user,1,1,1,1
+
+

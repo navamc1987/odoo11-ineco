@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="ineco_stock_picking_vendor_bill_form" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.vendor.bill.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+
+                <button name="button_validate" position="after">
+                    <field name="is_vendor_bill" invisible="1"/>
+                    <button name="button_vendor_bill"
+                            string="ยืนยันเอกสาร Vendor" type="object" class="oe_highlight"
+                            attrs="{'invisible': ['|','|',('is_vendor_bill', '!=', False), ('state', '!=', 'done'),('picking_type_code', '!=', 'incoming')]}"/>
+
+                    <!--                    <button name="button_customer_invoices"-->
+                    <!--                            string="สร้าง ใบกำกับ" type="object" class="oe_highlight"-->
+                    <!--                            attrs="{'invisible': ['|','|',('is_vendor_bill', '!=', False), ('state', '!=', 'done'),('picking_type_code', '!=', 'outgoing')]}"/>-->
+
+                </button>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button type="object" name="action_view_adjustments"
+                            class="oe_stat_button" icon="fa-file" attrs="{'invisible':[('adjustments_count','=',0)]}">
+                        <field name="adjustments_count" widget="statinfo" string="รายการปรับ"/>
+                        <field name="adjustments_ids" invisible="1"/>
+                    </button>
+
+
+                    <button type="object" name="action_view_adjust_excess"
+                            class="oe_stat_button" icon="fa-file"
+                            attrs="{'invisible':[('picking_adjust_count','=',0)]}">
+                        <field name="picking_adjust_count" widget="statinfo" string="รายการปรับ(ไม่สต๊อก)"/>
+                        <field name="picking_adjust_excess_ids" invisible="1"/>
+                    </button>
+
+                </xpath>
+
+                <field name="backorder_id" position="after">
+                    <field name="date_iv_sup" string="วันที่ใบกำกับ"
+                           attrs="{'invisible': ['|',('picking_type_code', '!=', 'incoming'),('adjust_excess_id','!=',False)],
+                                    'required': [('picking_type_code', '=','incoming'),('adjust_excess_id','=',False)],
+                                    'readonly':[('state','=','done')]}"
+                    />
+                    <field name="iv_sup_no" string="เลขที่ใบกำกับ"
+                           attrs="{'invisible': ['|',('picking_type_code', '!=', 'incoming'),('adjust_excess_id','!=',False)],
+                                    'required': [('picking_type_code', '=','incoming'),('adjust_excess_id','=',False)],
+                                    'readonly':[('state','=','done')]
+                                    }"
+                    />
+                    <field name="customer_invoices" string="เลขที่การตั้งหนี้"
+                           attrs="{'invisible': [('customer_invoices', '=', False)]}" groups="base.group_no_one"/>
+
+                    <field name="adjust_excess_id" readonly="1"
+                           attrs="{'invisible': [('adjust_excess_id', '=', False)]}"/>
+<!--                    <div>-->
+<!--                        <button name="%(ineco_thai_v11.action_wh_wizard_adjustmentsr)d"-->
+<!--                                type="action" string="ปรับสต๊อกรับของเกินPO"-->
+<!--                                attrs="{'invisible': [('customer_invoices', '=', False)]}"-->
+
+<!--                        />-->
+
+<!--                        <button name="%(ineco_thai_v11.action_wh_wizard_adjustmentsr_con)d"-->
+<!--                                type="action" string="ปรับสต๊อกรับของเกินPO (ไม่สต๊อกสินค้า)"-->
+<!--                                attrs="{'invisible': [('customer_invoices', '=', False)]}"-->
+
+<!--                        />-->
+
+<!--&lt;!&ndash;                        <button name="%(ineco_thai_v11.action_wizard_edit_inv_no)d"&ndash;&gt;-->
+<!--&lt;!&ndash;                                type="action" string="ปรับเอกสารทางบัญชี"&ndash;&gt;-->
+<!--&lt;!&ndash;                                attrs="{'invisible': ['|',('date_iv_sup', '=', False),('state','!=','done']}"&ndash;&gt;-->
+
+<!--                    </div>-->
+                </field>
+
+
+                <xpath expr="//notebook" position="inside">
+                    <page string="ประวัติการปรับปรุง">
+                        <field name="history_adjustments_lines" readonly="1">
+                            <tree>
+                                <field name="sequence"/>
+                                <field name="location_id"/>
+                                <field name="location_dest_id"/>
+                                <field name="name"/>
+                                <field name="product_id"/>
+                                <field name="product_uom"/>
+                                <field name="ordered_qty"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+
+
+            </field>
+        </record>
+
+
+        <record id="search_inherit_stock_picking_ineco2" model="ir.ui.view">
+            <field name="name">ineco.stock.picking.search2</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="iv_sup_no" string="เลขที่บิลSup"
+                           filter_domain="[('iv_sup_no','ilike', self)]"
+                    />
+                    <field name="scheduled_date" string="วันที่จัดเตรียมสินค้า"
+                           filter_domain="[('scheduled_date','ilike', self)]"
+                    />
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="view_update_history_adjustments_form_inherit" model="ir.ui.view">
+            <field name="name">view.update.history.adjustments.form.inherit</field>
+            <field name="model">stock.inventory</field>
+            <field name="inherit_id" ref="stock.view_inventory_form"/>
+            <field name="arch" type="xml">
+                <button name="action_done" position="after">
+                    <button name="history_adjustments"
+                            string="สร้าง" type="object" class="oe_highlight" invisible="1"/>
+
+                </button>
+            </field>
+        </record>
+
+
+
+        <record id="ineco_view_move_tree_valuation_at_date_form" model="ir.ui.view">
+            <field name="name">ineco.view.move.tree.valuation.at.date.form</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock_account.view_move_tree_valuation_at_date"/>
+            <field name="arch" type="xml">
+
+
+                <field name="product_uom" position="after">
+                    <field name="price_unit" string="Cost"/>
+                </field>
+
+
+            </field>
+        </record>
+
+
+    </data>
+</openerp>
+
+

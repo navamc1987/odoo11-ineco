@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="ineco_partner_form" model="ir.ui.view">
+            <field name="name">ineco.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="email" position="before">
+                    <field name="fax" />
+                </field>
+                <field name="vat" position="attributes">
+                    <attribute name="string">เลขประจำตัวผู้เสียภาษี</attribute>
+                </field>
+                <field name="vat" position="after">
+                    <field name="branch_no" string="สาขาที่"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>
+
+

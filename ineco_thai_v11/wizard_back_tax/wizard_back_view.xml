@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_wizard_back_tax" model="ir.ui.view">
+            <field name="name">view_wizard_back_tax</field>
+            <field name="model">wizard.back.tax</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Create Purchase Tax" version="7.0">
+                    <group>
+                        <group>
+                            <field name="name" readonly="0"/>
+                            <field name="docdat" readonly="0"/>
+                            <field name="partner_id" readonly="1"/>
+                            <field name="journal_id" required='1'
+                                   options="{'no_create': True}"
+                                   domain="[('type','=','general'),('input_tax','=',True)]"/>
+                            <field name="vatprd"/>
+                            <field name="account_id" invisible="1"/>
+                            <field name="ineco_vat" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="taxid" readonly="1"/>
+                            <field name="depcod" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="amount_untaxed" readonly="1"/>
+                            <field name="amount_tax" invisible="1"/>
+                            <field name="amount_tax_total"/>
+                            <field name="amount_total" readonly="1"/>
+
+                        </group>
+
+                        <newline/>
+                        <field name="item_ids" nolabel="1" colspan="2">
+                            <tree string="Details" editable="bottom">
+                                <field name="name"/>
+                                <field name="docdat"/>
+                                <field name="partner_id"/>
+                                <field name="taxid"/>
+                                <field name="depcod"/>
+                                <field name="amount_untaxed" readonly="0"/>
+                                <field name="amount_tax" readonly="0"/>
+                                <field name="amount_total" readonly="0"/>
+                            </tree>
+                        </field>
+
+                    </group>
+                    <footer>
+                        <button name="create_po_tax" string="กลับภาษี" type="object"
+                                class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <act_window id="action_wizard_back_tax"
+                    name="กลับภาษีซื้อ เป็น 1 ใบกำกับ"
+                    src_model="ineco.account.vat"
+                    res_model="wizard.back.tax"
+                    view_mode="form"
+                    target="new"
+                    key2="client_action_multi"/>
+
+
+    </data>
+</openerp>
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_ineco_account_account_form">
+            <field name="name">ineco.account.account.form</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="name2"/>
+                </field>
+                <field name="deprecated" position="after">
+                    <field name="tax_sale_ok"/>
+                    <field name="tax_purchase_ok"/>
+                    <field name="cheque_in_ok"/>
+                    <field name="cheque_out_ok"/>
+                    <field name="wht_purchase_ok"/>
+                    <field name="wait"/>
+                    <field name="wht_sale_ok"/>
+                    <field name="deposit_ok" invisible="1"/>
+                    <field name="active" />
+
+                    <button name="active_acc" attrs="{'invisible': [('active','=',False)]}"
+                            type="object" string="ซ่อน"
+                    />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>
