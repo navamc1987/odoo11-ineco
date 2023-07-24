@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_ineco_vendor_billing" model="ir.sequence">
+            <field name="name">ใบวางบิล</field>
+            <field name="code">ineco.vendor.billing</field>
+            <field name="prefix">BLV</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_ineco_vendor_billing2" model="ir.sequence">
+            <field name="name">ใบวางบิล2</field>
+            <field name="code">ineco.vendor.billing2</field>
+            <field name="prefix">BLV2</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+    <data>
+
+        <!-- ineco.billing -->
+        <record id="view_ineco_billing_vender_form" model="ir.ui.view">
+            <field name="name">ineco.billing.vender.form</field>
+            <field name="model">ineco.billing.vender</field>
+            <field name="arch" type="xml">
+                <form string="Billing" version="7.0">
+                    <header>
+                        <button name="cancel_all" string="ล้างข้อมูล" type="object" states="draft"/>
+                        <button name="button_cancel" string="ยกเลิกข้อมูล" type="object" states="draft"/>
+                        <button name="button_post_iv" string="ดึงข้อมูลวางบิล" type="object" states="draft,post_iv"/>
+                        <button name="button_post" string="ยื่นยัน" type="object" states="post_iv"/>
+                        <button name="register_pay" string="ขึ้นเตรียมจ่าย" type="object" states="post" />
+                        <button name="set_draft" string="กลับไปแก้ไข" type="object"
+                                attrs="{'invisible': [('state', '=', 'draft')]}"
+                                />
+<!--                        states="post"-->
+
+
+                        <field name="is_locked" invisible="1"/>
+                        <button name="action_toggle_is_locked"
+                                attrs="{'invisible': ['|', ('state', 'in', ('draft','cancel','done')), ('is_locked', '=', False)]}"
+                                string="Unlock"
+                                groups="base.group_system"
+                                type="object"
+                                help="If the picking is unlocked you can edit initial demand (for a draft picking) or done quantities (for a done picking)."/>
+                        <button name="action_toggle_is_locked" attrs="{'invisible': [('is_locked', '=', True)]}"
+                                string="Lock"
+                                class="oe_highlight" type="object"/>
+
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="draft,post_iv,waiting_to_check,post,register_pay,cancel"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="customer_id" string="ผู้จำหน่าย" domain="[('supplier','=',True)]"
+                                       attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}" />
+<!--                                <field name="type_vat" required="1" attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}"/>-->
+                                <field name="to_date" attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}"/>
+                                <field name="from_date" attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}"/>
+
+                                <field name="amount_residual" readonly="1"/>
+                                <field name="amount_refund" readonly="1"/>
+                                <field name="amount_billing" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="name" readonly="1"/>
+                                <field name="date" attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}"/>
+                                <field name="date_due" attrs="{'required':[('state', '=', 'post')],'readonly':[('state', 'in', ('register_pay')),('is_locked','=',True)]}"/>
+                                <!--                                <field name="change_number" groups="base.group_erp_manager"/>-->
+                            <field name="pay_id" string="เลขเอกสารการทำจ่าย" readonly="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Invoices">
+                                <group string="ใบแจ้งหนี้/ใบกำกับภาษี" colspan="4">
+                                    <field name="invoice_ids" nolabel="1" colspan="4"
+                                           attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}">
+<!--                                        domain="[('state','not in',['draft','cancel','paid']),-->
+<!--                                                    ('partner_id','=',customer_id),-->
+<!--                                                    ('type_vat','=',type_vat),-->
+<!--                                                    ('billing_id','=',False),-->
+<!--                                                    ('type','in',['in_invoice'])]"-->
+                                        <tree string="Invoices" create="0">
+                                            <field name="sequence_billing_verder_ref"/>
+                                            <field name="name" string="เอกสารอ้างอิง"/>
+                                            <field name="number" string="เลขที่เอกสาร"/>
+                                            <field name="reference" string="เลขที่ใบกำกับ"/>
+                                            <field name="date_invoice" string="ลงวันที่"/>
+                                            <field name="date_due" string="วันครบกำหนด"/>
+                                            <field name="origin" string="อ้างถึง"/>
+                                            <field name="residual_signed" string="ยอดเงิน"/>
+                                            <field name="amount_tax" invisible="1"/>
+                                            <field name="amount_total_signed" string="ยอดคงเหลือ" sum="Total"/>
+                                            <field name="state" string="สถานะ" invisible="0"/>
+                                            <field name="taxes_id"/>
+                                            <button name="cancel_billing_vender" string="ลบรายการ" type="object"
+                                            attrs="{'invisible': [('parent.state','!=','draft')]}"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="ใบลดหนี้" colspan="4">
+                                    <field name="refund_ids" nolabel="1" colspan="4"
+                                           attrs="{'readonly':[('state', 'in', ('post','register_pay')),('is_locked','=',True)]}">
+                                        <tree string="Refunds" create="0">
+                                            <field name="sequence_billing_refund_verder_ref"/>
+                                            <field name="name" string="เอกสารอ้างอิง"/>
+                                            <field name="number" string="เลขที่เอกสาร"/>
+                                            <field name="reference" string="ใบลดหนี้"/>
+                                            <field name="date_invoice" string="ลงวันที่"/>
+                                            <field name="date_due" string="วันครบกำหนด"/>
+                                            <field name="origin" string="อ้างถึง"/>
+                                            <field name="amount_total" string="ยอดเงิน"/>
+                                            <field name="amount_tax" invisible="1"/>
+                                            <field name="amount_total_signed" string="ยอดคงเหลือ" sum="Total"/>
+                                            <field name="state" string="สถานะ" invisible="0"/>
+                                            <button name="cancel_billing_vender" string="ลบรายการ" type="object"
+                                            attrs="{'invisible': [('parent.state','!=','draft')]}"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                            <page string="Note">
+                                <field name="note" nolabel="1" colspan="4"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ineco_billing_vender_tree" model="ir.ui.view">
+            <field name="name">ineco.billing.vender.tree</field>
+            <field name="model">ineco.billing.vender</field>
+            <field name="arch" type="xml">
+                <tree string="Billing">
+                    <field name="name"/>
+                    <field name="state" string="สถานะ"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="customer_id"/>
+                    <field name="amount_residual"/>
+                    <field name="amount_refund"/>
+                    <field name="amount_billing"/>
+                    <field name="pay_id" string="เอกสารการจ่าย"/>
+                    <field name="pay_state" string="สถานะการจ่าย"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_ineco_billing_vender_search" model="ir.ui.view">
+            <field name="name">ineco.billing.vender.search</field>
+            <field name="model">ineco.billing.vender</field>
+            <field name="arch" type="xml">
+                <search string="Billing">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_due"/>
+                    <field name="customer_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_ineco_billing_vender" model="ir.actions.act_window">
+            <field name="name">รับวางบิล</field>
+            <field name="res_model">ineco.billing.vender</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_ineco_billing_vender_tree"/>
+            <field name="context">{}</field>
+            <field name="domain"></field>
+            <field name="search_view_id" ref="view_ineco_billing_vender_search"/>
+        </record>
+
+
+         <record id="action_ineco_billing_vender_tree1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_ineco_billing_vender_tree"/>
+            <field name="act_window_id" ref="action_ineco_billing_vender"/>
+        </record>
+
+        <record id="action_ineco_billing_vender_form" model="ir.actions.act_window.view">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_ineco_billing_vender_form"/>
+            <field name="act_window_id" ref="action_ineco_billing_vender"/>
+        </record>
+
+        <menuitem action="action_ineco_billing_vender" id="menu_ineco_billing_vender"
+                  parent="account.menu_finance_payables_documents" sequence="2"/>
+
+
+    </data>
+</odoo>

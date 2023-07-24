@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_wizard_account_billing_vender_report" model="ir.ui.view">
+        <field name="name">view.wizard.account.billing.vender.report</field>
+        <field name="model">account.billing.vender.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Create Purchase Tax" version="7.0">
+                <group>
+                    <group>
+                        <field name="range_id" options="{'color_field': 'color', 'no_create_edit': True}"/>
+
+                    </group>
+                    <group>
+                        <field name="period_id" options="{'color_field': 'color', 'no_create_edit': True}"/>
+
+                    </group>
+                </group>
+                <footer>
+                    <button name="print_ineco_report" string="ปริ้น" type="object"
+                            class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+
+
+     <record id="action_account_billing_vender_report" model="ir.actions.act_window">
+        <field name="name">รายงานรับวางบิลประจำเดือน</field>
+        <field name="res_model">account.billing.vender.report</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_wizard_account_billing_vender_report"/>
+        <field name="target">new</field>
+    </record>
+
+
+
+    <menuitem id="menu_action_account_billing_vender_report"
+              action="action_account_billing_vender_report"
+              parent="ineco_thai_bill_vender.menu_ineco_billing_vender_to_pay"
+    />
+
+
+
+
+</odoo>

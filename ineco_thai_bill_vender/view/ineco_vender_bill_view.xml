@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="invoice_ineco_supplier_cancel_form_inherit" model="ir.ui.view">
+            <field name="name">invoice.ineco.supplier.cancel.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="replace">
+                    <header>
+                        <button name="action_invoice_open" type="object" states="draft" string="Validate"
+                                class="oe_highlight" groups="account.group_account_invoice"/>
+                        <button name="%(account.action_account_invoice_refund)d" type='action' string='Ask for a Credit Note'
+                                groups="account.group_account_invoice"
+                                attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('state','not in',('open','paid'))]}"/>
+                        <button name="action_invoice_draft" states="cancel" string="Set to Draft" type="object"
+                                groups="account.group_account_invoice"/>
+                        <button name="action_button_billing_vender" type="object"  string="รับวางบิล"
+                                attrs="{'invisible': ['|',('type', 'in', ['in_refund','out_refund']),('button_billing_vender_date','!=',False)]}"
+                                groups="account.group_account_invoice"/>
+                        <button name="action_invoice_cancel" type="object" states="draft,open" string="Cancel Invoice" groups="account.group_account_invoice"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,open,paid"/>
+                    </header>
+                </xpath>
+
+                <field name="date_due" position="after">
+                    <field name="button_billing_vender_date" />
+                </field>
+
+
+                <field name="journal_id" position="after">
+                    <field name="type_vat" groups="base.group_no_one"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>
