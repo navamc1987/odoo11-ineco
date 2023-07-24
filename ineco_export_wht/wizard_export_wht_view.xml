@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<openerp>
+    <data>
+
+        <record id="wizard_export_wht_form" model="ir.ui.view">
+            <field name="name">wizard.export.wht.form</field>
+            <field name="model">wizard.export.wht</field>
+            <field name="arch" type="xml">
+                <form string="Export WHT" version="7.0">
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+                    <footer>
+                        <button string="ภงด 3" name="export_wht3" type="object" class="oe_highlight"/>
+                        or
+                        <button string="ภงด 53" name="export_wht53" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_wizard_export_wht" model="ir.actions.act_window">
+            <field name="name">Export With Holding Tax</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.export.wht</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="menu_wizard_export_wht" name="Export WHT" parent="ineco_thai_v11.menu_ineco_wht"
+                  action="action_wizard_export_wht" sequence="500"/>
+
+    </data>
+</openerp>
