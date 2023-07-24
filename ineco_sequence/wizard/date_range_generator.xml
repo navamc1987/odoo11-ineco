@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ineco_range_generator_form" model="ir.ui.view">
+        <field name="name">ineco.range.generator.form</field>
+        <field name="model">ineco.range.generator</field>
+        <field name="arch" type="xml">
+            <form string="Generate Date Ranges">
+                <group col="4">
+<!--                    <field name="name_prefix"/>-->
+<!--                    <field name="type_id"/>-->
+                    <label for="duration_count" string="ประเภทการรันเช่น 1 เดือน/ครั้ง"/>
+                    <div>
+                        <field class="oe_inline" name="duration_count"/>
+                        <field class="oe_inline" name="unit_of_time"/>
+                    </div>
+                    <field name="date_start" string="วันเริ่มต้น"/>
+                    <field name="count" string="จำนวนที่ต้องการสร้าง"/>
+                    <field groups="base.group_multi_company"
+                        name="company_id" options="{'no_create': True}"/>
+                </group>
+                <footer>
+                    <button class="btn btn-sm btn-primary"
+                        name="action_apply" string="Submit" type="object"/>
+                    <button class="btn btn-sm btn-default"
+                        special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="ineco_range_generator_action" model="ir.actions.act_window">
+        <field name="name">Generate Date Ranges</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">ineco.range.generator</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="ineco_range_generator_form"/>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="ineco_sequence_view_form" model="ir.ui.view">
+        <field name="name">ineco_sequence_view_form</field>
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/group/group/field[@name='use_date_range']" position="after">
+                <button name="%(ineco_sequence.ineco_range_generator_action)d"
+                    type="action" string="Generator Date"
+                    class="oe_stat_button oe_inline"
+                    icon="fa-list-alt" attrs="{'invisible': [('use_date_range', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>
