@@ -1,0 +1,2461 @@
+<openerp>
+    <data noupdate="1">
+
+        <!-- ACCOUNT TYPES -->
+
+        <record id="acc_type_view" model="account.account.type">
+            <field name="name">View</field>
+        </record>
+
+        <record id="acc_type_reconciled" model="account.account.type">
+            <field name="name">Reconciled</field>
+        </record>
+
+        <record id="acc_type_other" model="account.account.type">
+            <field name="name">Other</field>
+        </record>
+
+
+        <!-- CHART OF ACCOUNTS -->
+        <record id="transfer_account" model="account.account.template">
+            <field name="name">Transfer Account</field>
+            <field name="code">16</field>
+            <field name="reconcile" eval="True"/>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        </record>
+
+        <record id="chart" model="account.chart.template">
+            <field name="name">INECO - Chart of Accounts</field>
+            <field name="transfer_account_id" ref="transfer_account"/>
+            <field name="currency_id" ref="base.THB"/>
+        </record>
+
+        <record id="transfer_account" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+        </record>
+
+
+        <record id="i_root" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">0</field>
+            <field name="name">Thai chart of accounts</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+        </record>
+        <record id="i1662" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1000-00</field>
+            <field name="name">สินทรัพย์</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i_root"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1663" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1100-00</field>
+            <field name="name">สินทรัพย์หมุนเวียน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1662"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1664" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1110-00</field>
+            <field name="name">เงินสดและเงินฝากธนาคาร</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1665" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-00</field>
+            <field name="name">เงินสด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1666" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-50</field>
+            <field name="name">เงินสดย่อย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1913" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-51</field>
+            <field name="name">เงินสดย่อย-1</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1914" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-52</field>
+            <field name="name">เงินสดย่อย-2</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1915" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-53</field>
+            <field name="name">เงินสดย่อย-3</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1916" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-54</field>
+            <field name="name">เงินสดย่อย-4</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1917" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-55</field>
+            <field name="name">เงินสดย่อย-คชจ ในบ้าน อื่นๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1943" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1111-56</field>
+            <field name="name">เงินสดย่อย-ค่าอะไหล่</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1667" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1112-00</field>
+            <field name="name">เงินฝากกระแสรายวัน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1668" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1112-01</field>
+            <field name="name">เงินฝากกระแส-ธ. ไทยพาณิชย์ 1</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1667"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1669" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1112-02</field>
+            <field name="name">เงินฝากกระแส-ธ. ไทยพาณิชย์ 2</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1667"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1670" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1112-03</field>
+            <field name="name">เงินฝากกระแส-ธ. กสิกร 3</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1667"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1671" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1112-04</field>
+            <field name="name">เงินฝากกระแส-ธ. กสิกร 4</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1667"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1672" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1113-00</field>
+            <field name="name">เงินฝากออมทรัพย์</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1673" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1113-01</field>
+            <field name="name">เงินฝากออมทรัพย์-ธ. กรุงเทพ 5</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1672"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1674" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1113-02</field>
+            <field name="name">เงินฝากออมทรัพย์-ธ.กสิกร 6</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1672"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1675" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1113-03</field>
+            <field name="name">เงินฝากออมทรัพย์-ธ. ธนชาต 7</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1672"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1676" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1113-04</field>
+            <field name="name">เงินฝากออมทรัพย์-ธ. XXX 999-9-99999-4</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1672"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1677" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1114-00</field>
+            <field name="name">เงินฝากประจำ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1664"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1678" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1114-01</field>
+            <field name="name">เงินฝากประจำ 999-9-99999-1</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1677"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1679" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1114-02</field>
+            <field name="name">เงินฝากประจำ 999-9-99999-2</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1677"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1680" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1114-03</field>
+            <field name="name">เงินฝากประจำ 999-9-99999-3</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1677"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1681" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1120-00</field>
+            <field name="name">เงินลงทุนระยะสั้น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1682" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1130-00</field>
+            <field name="name">ลูกหนี้การค้าและตั๋วเงินรับ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1683" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1130-01</field>
+            <field name="name">ลูกหนี้การค้า</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1682"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1684" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1130-02</field>
+            <field name="name">เช็ครับลงวันที่ล่วงหน้า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1682"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1685" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1130-03</field>
+            <field name="name">ค่าเผื่อหนี้สงสัยจะสูญ</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1682"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1686" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1130-04</field>
+            <field name="name">ลูกหนี้อื่น ๆ</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1682"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1687" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1140-00</field>
+            <field name="name">สินค้าคงเหลือ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1688" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1140-01</field>
+            <field name="name">วัตถุดิบคงเหลือ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1687"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1689" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1140-02</field>
+            <field name="name">สินค้าสำเร็จรูปคงเหลือ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1687"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1690" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1140-03</field>
+            <field name="name">งานระหว่างทำ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1687"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1691" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1150-00</field>
+            <field name="name">สินทรัพย์หมุนเวียนอื่น ๆ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1692" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1151-00</field>
+            <field name="name">ค่าใช้จ่ายจ่ายล่วงหน้า</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1693" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1151-01</field>
+            <field name="name">ค่าใช้จ่ายจ่ายล่วงหน้า-ค่าสินค้า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1692"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1694" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1151-02</field>
+            <field name="name">ค่าใช้จ่ายจ่ายล่วงหน้า-อื่น ๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1692"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1695" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1151-03</field>
+            <field name="name">ภาษีนิติบุคคลจ่ายล่วงหน้า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1692"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1696" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1152-00</field>
+            <field name="name">เงินทดลองจ่ายพนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1697" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1153-00</field>
+            <field name="name">รายได้ค้างรับ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1698" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1153-01</field>
+            <field name="name">ดอกเบี้ยค้างรับ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1697"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1699" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1153-02</field>
+            <field name="name">รายได้ค้างรับอื่น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1697"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1700" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1154-00</field>
+            <field name="name">ภาษีซื้อ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1701" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1155-00</field>
+            <field name="name">ภาษีซื้อ-ยังไม่ถึงกำหนด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1702" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1156-00</field>
+            <field name="name">ลูกหนี้-กรมสรรพากร</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1691"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1703" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1200-00</field>
+            <field name="name">ลูกหนี้เงินให้กู้ยืมแก่กรรมการและลูกจ้าง</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1662"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i6" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">120000</field>
+            <field name="name">ลูกหนี้การค้า (อื่นๆ)</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1663"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1704" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1201-00</field>
+            <field name="name">ลูกหนี้เงินยืมกรรมการ</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1703"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1705" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1210-00</field>
+            <field name="name">ลูกหนี้เงินให้กู้ยืม-นาย...</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1703"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1706" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1300-00</field>
+            <field name="name">เงินลงทุนในบริษัทในเครือ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1662"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1707" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1400-00</field>
+            <field name="name">ที่ดิน อาคารและอุปกรณ์สุทธิ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1662"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1708" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-00</field>
+            <field name="name">ที่ดิน อาคาร และอุปกรณ์</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1707"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1709" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-01</field>
+            <field name="name">ที่ดิน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1710" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-02</field>
+            <field name="name">อาคารโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1711" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-03</field>
+            <field name="name">อาคารสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1712" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-04</field>
+            <field name="name">เครื่องมือเครื่องใช้</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1713" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-05</field>
+            <field name="name">ยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1714" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-06</field>
+            <field name="name">เครื่องใช้สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1715" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-07</field>
+            <field name="name">เครื่องตกแต่งสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1716" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-08</field>
+            <field name="name">คอมพิวเตอร์และอุปกรณ์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1717" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-09</field>
+            <field name="name">โปรแกรมและซอฟแวร์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1938" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1410-10</field>
+            <field name="name">เครื่องจักร</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1708"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1718" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-00</field>
+            <field name="name">ค่าเสื่อมราคาสะสม</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1707"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1719" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-01</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-อาคารโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1720" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-02</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-อาคารสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1721" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-03</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-เครื่องจักร</field>
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <!--<field name="type">other</field>-->
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1722" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-04</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-เครื่องมือเครื่องใช้</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1723" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-05</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-ยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1724" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-06</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-เครื่องใช้สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1725" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-07</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-เครื่องตกแต่งสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1726" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-08</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-คอมพิวเตอร์และอุปกรณ์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1727" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1420-09</field>
+            <field name="name">ค่าเสื่อมราคาสะสม-โปรแกรมและซอฟแวร์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_depreciation"/>
+            <field name="parent_id" ref="i1718"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1728" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-00</field>
+            <field name="name">สินทรัพย์อื่น ๆ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1662"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1729" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-01</field>
+            <field name="name">กรมธรรม์ประกันอัคคีภัย-สินค้าและอาคาร</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1730" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-02</field>
+            <field name="name">กรมธรรม์ประกันอัคคีภัย-ยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1731" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-03</field>
+            <field name="name">กรมธรรม์ประกันอุบัติเหตุพนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1732" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-04</field>
+            <field name="name">วัสดุอื่น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1733" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-05</field>
+            <field name="name">เงินประกัน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1734" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">1500-06</field>
+            <field name="name">เงินมัดจำ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1728"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1735" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2000-00</field>
+            <field name="name">หนี้สิน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i_root"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1736" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2100-00</field>
+            <field name="name">หนี้สินหมุนเวียน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1735"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1737" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2120-00</field>
+            <field name="name">เจ้าหนี้การค้าและตั๋วเงินจ่าย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1736"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1738" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2120-01</field>
+            <field name="name">เจ้าหนี้การค้า</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1737"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1739" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2120-02</field>
+            <field name="name">เช็คจ่ายล่วงหน้า</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1737"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1740" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2120-03</field>
+            <field name="name">เงินกู้ยืมกรรมการ</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1737"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1930" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2120-04</field>
+            <field name="name">เช็คจ่ายล่วงหน้า-แลกเช็ค</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1737"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1741" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2130-00</field>
+            <field name="name">หนี้สินหมุนเวียนอื่น</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1736"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1742" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-00</field>
+            <field name="name">ค่าใช้จ่ายค้างจ่าย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1743" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-01</field>
+            <field name="name">เงินเดือนค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1744" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-02</field>
+            <field name="name">เงินโบนัสค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1745" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-03</field>
+            <field name="name">ค่านายหน้าค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1746" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-04</field>
+            <field name="name">เงินประกันสังคมรอนำส่ง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1747" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-05</field>
+            <field name="name">ค่าโทรศัพท์ค้างจ่าย</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1748" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-06</field>
+            <field name="name">ค่าไฟฟ้าค้างจ่าย</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1749" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-07</field>
+            <field name="name">ค่าน้ำประปาค้างจ่าย</field>
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1750" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-08</field>
+            <field name="name">ดอกเบี้ยเงินกู้ค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1751" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-09</field>
+            <field name="name">ค่าใช้จ่ายค้างจ่าย-อื่น ๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1752" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-10</field>
+            <field name="name">ค่าสอบบัญชีค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1753" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-11</field>
+            <field name="name">ค่าโฆษณาค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1924" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2131-12</field>
+            <field name="name">เงินประกันสังคมรอนำส่ง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1742"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1754" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2132-00</field>
+            <field name="name">ภาษีค้างจ่าย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1755" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2132-01</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.1</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1756" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2132-02</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.3</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1757" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2132-03</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.53</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1758" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2132-04</field>
+            <field name="name">ภาษีเงินได้นิติบุคคลค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <!--<record id="i1920" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/><field name="code">2132-05</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.1</field>
+            field name="type">other</field>
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>-->
+        <record id="i1921" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/><field name="code">2132-06</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.3</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1922" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/><field name="code">2132-07</field>
+            <field name="name">ภาษีหัก ณ ที่จ่ายค้างจ่าย ภงด.53</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1923" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/><field name="code">2132-08</field>
+            <field name="name">ภาษีเงินได้นิติบุคคลค้างจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1754"/>
+            <field name="reconcile">true</field>
+        </record>-->
+        <record id="i1759" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2133-00</field>
+            <field name="name">รายได้รับล่วงหน้า</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1760" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2133-01</field>
+            <field name="name">รายได้รับล่วงหน้า-ค่าสินค้า</field>
+            <field name="user_type_id" ref="account.data_account_type_receivable"/>
+            <field name="parent_id" ref="i1759"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1761" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2134-00</field>
+            <field name="name">เงินมัดจำรับและเงินค้ำประกัน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1762" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2135-00</field>
+            <field name="name">ภาษีขาย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1763" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2136-00</field>
+            <field name="name">ภาษีขาย-รอเรียกเก็บ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_current_liabilities"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1764" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2137-00</field>
+            <field name="name">เจ้าหนี้กรมสรรพากร</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1933" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2137-01</field>
+            <field name="name">เจ้าหนี้กรมสรรพากร</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1765" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2138-00</field>
+            <field name="name">เงินกู้ยืมจากกรรมการ</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1741"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1766" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2200-00</field>
+            <field name="name">เงินกู้ยืมระยะยาว</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1735"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1767" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2210-00</field>
+            <field name="name">เงินกู้ยืมธนาคารระยะยาว</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1766"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1768" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">2300-00</field>
+            <field name="name">หนี้สินอื่น ๆ</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="parent_id" ref="i1735"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1769" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">3000-00</field>
+            <field name="name">ส่วนของผู้ถือหุ้น</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i_root"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1770" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">3100-00</field>
+            <field name="name">ทุน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_equity"/>
+            <field name="parent_id" ref="i1769"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1771" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">3200-00</field>
+            <field name="name">กำไรสะสม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_equity"/>
+            <field name="parent_id" ref="i1769"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1772" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">3300-00</field>
+            <field name="name">กำไร(ขาดทุน)</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_equity"/>
+            <field name="parent_id" ref="i1769"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1773" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4000-00</field>
+            <field name="name">รายได้</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i_root"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1774" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4100-00</field>
+            <field name="name">รายได้จากการขายสินค้า-สุทธิ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1773"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1775" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4100-01</field>
+            <field name="name">รายได้จากการขาย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="parent_id" ref="i1774"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1776" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4100-02</field>
+            <field name="name">รายได้จากการให้บริการ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="parent_id" ref="i1774"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1777" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4100-03</field>
+            <field name="name">รับคืนสินค้า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="parent_id" ref="i1774"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1778" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4100-04</field>
+            <field name="name">ส่วนลดจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_revenue"/>
+            <field name="parent_id" ref="i1774"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1779" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-00</field>
+            <field name="name">รายได้อื่น ๆ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1773"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1780" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-01</field>
+            <field name="name">ดอกเบี้ยรับ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1781" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-02</field>
+            <field name="name">กำไร(ขาดทุน)จากการจำหน่ายทรัพย์สิน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1782" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-03</field>
+            <field name="name">ส่วนลดเงินสดรับ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1783" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-04</field>
+            <field name="name">กำไรจากอัตราแลกเปลี่ยน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1784" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-05</field>
+            <field name="name">รายได้จากการขายเศษวัสดุ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1785" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">4200-06</field>
+            <field name="name">รายได้อื่น ๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_other_income"/>
+            <field name="parent_id" ref="i1779"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1786" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5000-00</field>
+            <field name="name">ค่าใช้จ่าย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i_root"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1787" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5100-00</field>
+            <field name="name">ต้นทุนขายสุทธิ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1786"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1788" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5110-00</field>
+            <field name="name">ต้นทุนสินค้าเพื่อขาย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1787"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1789" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5110-01</field>
+            <field name="name">สินค้าคงเหลือปลายงวด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1787"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1790" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5110-02</field>
+            <field name="name">สินค้าคงเหลือต้นงวด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1787"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1791" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-00</field>
+            <field name="name">ซื้อสุทธิ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1787"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1792" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-01</field>
+            <field name="name">ซื้อ- วัตถุดิบ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1791"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1793" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-02</field>
+            <field name="name">ส่วนลดรับ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1791"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1794" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-03</field>
+            <field name="name">ส่งคืนสินค้า</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1791"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1795" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-04</field>
+            <field name="name">ค่าขนส่ง (เข้า)</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1791"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1796" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5130-05</field>
+            <field name="name">ค่าย้อม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1791"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1797" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5140-00</field>
+            <field name="name">ค่าใช้จ่ายในการผลิต</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1787"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1798" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-00</field>
+            <field name="name">ค่าใช้จ่ายเกี่ยวกับพนักงาน - ผลิต</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1799" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-01</field>
+            <field name="name">ค่าแรง-โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1800" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-02</field>
+            <field name="name">ค่าล่วงเวลา -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1801" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-03</field>
+            <field name="name">ค่าเบี้ยเลี้ยง -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1802" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-04</field>
+            <field name="name">โบนัส -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1803" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-05</field>
+            <field name="name">เงินสมทบกองทุนประกันสังคม -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1804" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-06</field>
+            <field name="name">เงินสมทบกองทุนทดแทน -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1805" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-07</field>
+            <field name="name">ค่าอบรมสัมนา -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1806" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5141-08</field>
+            <field name="name">ค่าแบบฟอร์มพนักงาน -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1807" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5142-00</field>
+            <field name="name">ค่าใช้จ่ายเกี่ยวกับเครื่องจักร</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1808" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5142-01</field>
+            <field name="name">ค่าซ่อมแซมบำรุงรักษา - เครื่องจักร</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1809" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5142-02</field>
+            <field name="name">ค่าซ่อมแซมบำรุงรักษา - โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1807"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1810" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-00</field>
+            <field name="name">ค่าเสื่อมราคาโรงงาน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1811" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-01</field>
+            <field name="name">ค่าเสื่อมราคา-อาคารโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1812" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-02</field>
+            <field name="name">ค่าเสื่อมราคา-เครื่องจักร</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1813" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-03</field>
+            <field name="name">ค่าเสื่อมราคาเครื่องมือเครื่องใช้</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1814" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-04</field>
+            <field name="name">ค่าเสื่อมราคา-คอมพิวเตอร์และอุปกรณ์ -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1815" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5143-05</field>
+            <field name="name">ค่าเสื่อมราคา-โปรแกรมและซอฟแวร์ -โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1816" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-00</field>
+            <field name="name">ค่าใช้จ่ายสาธารณูปโภค</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1817" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-01</field>
+            <field name="name">ค่าโทรศัพท์-โรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1818" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-02</field>
+            <field name="name">ค่าไฟฟ้าโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1819" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-03</field>
+            <field name="name">ค่าน้ำประปาโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1820" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-04</field>
+            <field name="name">ค่าอินเทอร์เน็ต</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1926" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-05</field>
+            <field name="name">ค่าไฟฟ้าโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1927" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-06</field>
+            <field name="name">ค่าน้ำประปาโรงงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1928" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5144-07</field>
+            <field name="name">ค่าสาธารณูปโภค</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1821" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5145-00</field>
+            <field name="name">ค่าใช้จ่ายอื่นๆเกี่ยวกับโรงงาน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1797"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1822" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5145-01</field>
+            <field name="name">ค่าเบี้ยประกันภัย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1821"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1823" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5145-02</field>
+            <field name="name">วัสดุสิ้นเปลืองใช้ไป</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1821"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1824" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-00</field>
+            <field name="name">ค่าใช้จ่ายในการขาย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1786"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1825" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-01</field>
+            <field name="name">ค่านายหน้า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1826" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-02</field>
+            <field name="name">ค่าโฆษณา</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1827" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-03</field>
+            <field name="name">ค่าสินค้าตัวอย่าง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1828" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-04</field>
+            <field name="name">ค่าส่งเสริมการขาย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1829" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-05</field>
+            <field name="name">ค่าขนส่งออก</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1830" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-06</field>
+            <field name="name">คชจ.ในการขาย-ค่าติดต่อสื่อสาร</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1831" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5200-07</field>
+            <field name="name">ค่าวิจัยตลาด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1824"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1832" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5300-00</field>
+            <field name="name">ค่าใช้จ่ายในการบริหาร</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1786"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1833" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-00</field>
+            <field name="name">ค่าใช้จ่ายเกี่ยวกับพนักงาน-เงินเดือนและสวัสดิการ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1834" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-01</field>
+            <field name="name">เงินเดือน-สนง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1835" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-02</field>
+            <field name="name">ค่าล่วงเวลา</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1836" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-03</field>
+            <field name="name">ค่าเบี้ยเลี้ยง</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1837" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-04</field>
+            <field name="name">โบนัส</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1838" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-05</field>
+            <field name="name">เงินเพิ่มพิเศษ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1839" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-07</field>
+            <field name="name">ค่าที่พักอาศัย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1840" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-08</field>
+            <field name="name">คอมมิชชั่น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_direct_costs"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1841" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-09</field>
+            <field name="name">เงินสมทบกองทุนประกันสังคม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1842" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-10</field>
+            <field name="name">เงินสมทบกองทุนทดแทน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1843" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-11</field>
+            <field name="name">ค่ารักษาพยาบาล</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1844" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-12</field>
+            <field name="name">ค่าอบรมสัมนา</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1845" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-13</field>
+            <field name="name">ค่าแบบฟอร์มพนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1846" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-14</field>
+            <field name="name">ค่าเบี้ยประกันชีวิตและอุบัติเหตุ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1847" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-15</field>
+            <field name="name">ค่าอาหารและเครื่องดื่ม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1848" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-16</field>
+            <field name="name">ค่าจัดเลี้ยงและสันทนาการ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1849" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5310-17</field>
+            <field name="name">ค่าสวัสดิการอื่น ๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>
+        <!--<record id="i1925" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/><field name="code">5310-18</field>
+            <field name="name">เงินสมทบกองทุนประกันสังคม</field>
+            <field name="type">other</field>
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1833"/>
+            <field name="reconcile">true</field>
+        </record>-->
+        <record id="i1850" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-00</field>
+            <field name="name">ค่าใช้จ่ายสำนักงาน</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1851" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-01</field>
+            <field name="name">ค่าเครื่องเขียนแบบพิมพ์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1852" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-02</field>
+            <field name="name">ค่าซ่อมแซม-สนง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1853" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-03</field>
+            <field name="name">วัสดุสำนักงานใช้ไป</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1854" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-04</field>
+            <field name="name">ค่าวารสารและสมาชิก</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1855" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-05</field>
+            <field name="name">ค่าเช่าสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1856" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-06</field>
+            <field name="name">ค่ายามรักษาความปลอดภัย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1857" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-07</field>
+            <field name="name">ค่ารักษาความสะอาด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1858" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-08</field>
+            <field name="name">ค่าบริการส่วนกลาง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1859" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5320-09</field>
+            <field name="name">ค่าเช่า</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1850"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1860" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-00</field>
+            <field name="name">ค่าสาธารณูปโภคและสื่อสาร</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1861" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-01</field>
+            <field name="name">ค่าโทรศัพท์-สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1862" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-02</field>
+            <field name="name">ค่าไฟฟ้าสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1863" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-03</field>
+            <field name="name">ค่าน้ำประปา</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1864" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-04</field>
+            <field name="name">ค่าไปรษณีย์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1865" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-05</field>
+            <field name="name">ค่าอินเทอร์เน็ต</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1929" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5330-06</field>
+            <field name="name">ค่าโทรศัพท์-สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1860"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1866" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-00</field>
+            <field name="name">ค่าเสื่อมราคา</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1867" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-01</field>
+            <field name="name">ค่าเสื่อมราคา-อาคารสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1868" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-02</field>
+            <field name="name">ค่าเสื่อมราคา-ยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1869" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-03</field>
+            <field name="name">ค่าเสื่อมราคา-เครื่องใช้สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1870" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-04</field>
+            <field name="name">ค่าเสื่อมราคา-เครื่องตกแต่งสำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1871" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-05</field>
+            <field name="name">ค่าเสื่อมราคา-คอมพิวเตอร์และอุปกรณ์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1872" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5340-06</field>
+            <field name="name">ค่าเสื่อมราคา-โปรแกรมและซอฟแวร์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1866"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1873" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-00</field>
+            <field name="name">ค่าเบี้ยประกันภัย</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1874" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-01</field>
+            <field name="name">ค่าเบี้ยประกัน-อาคาร</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1873"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1875" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-02</field>
+            <field name="name">ค่าเบี้ยประกัน-อุปกรณ์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1873"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1876" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-03</field>
+            <field name="name">ค่าเบี้ยประกัน-เครื่องตกแต่ง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1873"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1877" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-04</field>
+            <field name="name">ค่าเบี้ยประกัน-ยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1873"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1878" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5350-05</field>
+            <field name="name">ค่าเบี้ยประกัน-เครื่องใช้สำนักงาน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1873"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1879" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-00</field>
+            <field name="name">ค่าภาษีและค่าธรรมเนียม</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1880" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-01</field>
+            <field name="name">ภาษีบำรุงท้องที่และภาษีโรงเรือน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1881" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-02</field>
+            <field name="name">ค่าภาษียานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1882" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-03</field>
+            <field name="name">ภาษีป้าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1883" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-04</field>
+            <field name="name">ค่าธรรมเนียมธนาคาร</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1884" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-05</field>
+            <field name="name">ค่าตรวจสอบบัญชีและปรึกษากฏหมาย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1885" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-06</field>
+            <field name="name">ค่าธรรมเนียมหนังสือค้ำประกัน</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1886" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-07</field>
+            <field name="name">ค่ากรสแตมป์</field>
+            <!--<field name="type">other</field>-->
+           <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1887" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-08</field>
+            <field name="name">ค่าธรรมเนียมอื่น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1888" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5360-09</field>
+            <field name="name">ค่าเบี้ยปรับเงินเพิ่ม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="acc_type_reconciled"/>
+            <field name="parent_id" ref="i1879"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1889" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-00</field>
+            <field name="name">ค่าใช้จ่ายอื่น ๆ</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1890" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-01</field>
+            <field name="name">ดอกเบี้ยจ่าย</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1891" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-02</field>
+            <field name="name">หนี้สงสัยจะสูญ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1892" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-03</field>
+            <field name="name">ค่ารับรอง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1893" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-04</field>
+            <field name="name">ค่าบริจาคการกุศล</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1894" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-06</field>
+            <field name="name">ค่าใช้จ่ายเบ็ดเตล็ด</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1895" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-07</field>
+            <field name="name">กำไรขาดทุนจากอัตราแลกเปลี่ยน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1896" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-08</field>
+            <field name="name">ค่าบริการบัญชี</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1897" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-09</field>
+            <field name="name">ค่าสอบบัญชี</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1898" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-10</field>
+            <field name="name">ค่าบริการ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1899" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-11</field>
+            <field name="name">ค่าใช้จ่ายในการเดินทางและยานพาหนะ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1900" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-12</field>
+            <field name="name">ค่ารับรอง</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1901" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-13</field>
+            <field name="name">ค่าธรรมเนียมอื่น</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1902" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-14</field>
+            <field name="name">ค่าอากรสแตมป์</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1903" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5370-15</field>
+            <field name="name">ค่าซ่อมแซมบำรุงรักษาอื่นๆ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1904" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5380-00</field>
+            <field name="name">หนี้สูญ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1889"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1905" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5390-00</field>
+            <field name="name">ค่าใช้จ่ายต้องห้าม</field>
+            <!--<field name="type">view</field>-->
+            <field name="user_type_id" ref="acc_type_view"/>
+            <field name="parent_id" ref="i1832"/>
+            <field name="reconcile">false</field>
+        </record>
+        <record id="i1906" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5390-01</field>
+            <field name="name">ภาษีซื้อไม่ขอคืน/ขอคืนไม่ได้</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1905"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1907" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5390-02</field>
+            <field name="name">ค่าใช้จ่ายบวกกลับ</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1905"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1908" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5390-03</field>
+            <field name="name">ค่าเบี้ยปรับเงินเพิ่ม</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1905"/>
+            <field name="reconcile">true</field>
+        </record>
+        <record id="i1909" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">5390-04</field>
+            <field name="name">เงินขาดเงินเกิน</field>
+            <!--<field name="type">other</field>-->
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="parent_id" ref="i1905"/>
+            <field name="reconcile">true</field>
+        </record>
+
+        <!-- CHART OF ACCOUNTS -->
+        <record id="transfer_account" model="account.account.template">
+            <field name="name">Transfer Account</field>
+            <field name="chart_template_id" ref="chart"/>
+            <field name="code">16</field>
+            <field name="reconcile" eval="True"/>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+        </record>
+
+        <record id="chart" model="account.chart.template">
+            <field name="name">INECO - Chart of Accounts</field>
+            <field name="account_root_id" ref="i_root"/>
+            <field name="transfer_account_id" ref="transfer_account"/>
+            <!--<field name="tax_code_root_id" ref="tc_root"/>-->
+            <field name="bank_account_view_id" ref="i1668"/>
+            <field name="property_account_receivable" ref="i1683"/>
+            <field name="property_account_payable" ref="i1738"/>
+            <field name="property_account_expense_categ" ref="i1792"/>
+            <field name="property_account_income_categ" ref="i1775"/>
+            <field name="property_account_expense" ref="i1792"/>
+            <field name="property_account_income" ref="i1775"/>
+            <field name="currency_id" ref="base.THB"/>
+        </record>
+
+        <record id="transfer_account" model="account.account.template">
+            <field name="chart_template_id" ref="chart"/>
+        </record>
+    </data>
+</openerp>
